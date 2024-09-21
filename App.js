@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import React from "react";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native";
+import Routes from "./src/routes";
+import ErrorBoundary from "./src/components/ErrorBoundary";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { store } from "./src/store/store";
+import { Provider } from "react-redux";
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <GestureHandlerRootView>
+        <ErrorBoundary>
+          <SafeAreaView style={{ flex: 1 }}>
+            <Routes />
+          </SafeAreaView>
+        </ErrorBoundary>
+      </GestureHandlerRootView>
+    </Provider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
+export default App;
