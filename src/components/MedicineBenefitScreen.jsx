@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-
-const MedicineBenefitScreen = ({navigation}) => {
+import React from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { scaleHeight, scaleWidth } from "../utils/config";
+const MedicineBenefitScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -40,51 +40,51 @@ const MedicineBenefitScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#eaeaea',
+    padding: 20 * scaleWidth,
+    backgroundColor: "#eaeaea",
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#333',
+    fontSize: 24 * scaleWidth,
+    fontWeight: "bold",
+    marginBottom: 20 * scaleHeight,
+    textAlign: "center",
+    color: "#333",
     borderBottomWidth: 2,
-    borderBottomColor: '#007bff',
-    paddingBottom: 10,
+    borderBottomColor: "#007bff",
+    paddingBottom: 10 * scaleHeight,
   },
   benefitText: {
-    fontSize: 16,
-    marginBottom: 15,
-    color: '#444',
-    lineHeight: 24,
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    fontSize: 16 * scaleWidth,
+    marginBottom: 15 * scaleHeight,
+    color: "#444",
+    lineHeight: 24 * scaleWidth,
+    padding: 10 * scaleWidth,
+    backgroundColor: "#fff",
+    borderRadius: 8 * scaleWidth,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 2, // Android shadow
   },
   container_btn_back: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 3,
-    borderRadius: 8,
-    backgroundColor: '#fff',
+    borderRadius: 8 * scaleWidth,
+    backgroundColor: "#fff",
   },
   backButton: {
-    marginBottom: 20,
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 8,
-    alignItems: 'center',
+    marginBottom: 20 * scaleHeight,
+    padding: 10 * scaleWidth,
+    backgroundColor: "#007bff",
+    borderRadius: 8 * scaleWidth,
+    alignItems: "center",
   },
   backButtonText: {
-    fontSize: 16,
-    color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 16 * scaleWidth,
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 

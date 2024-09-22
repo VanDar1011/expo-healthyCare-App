@@ -17,6 +17,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "@reduxjs/toolkit": "^2.2.7",
     "dotenv": "^16.4.5",
+    "eas-cli": "^12.4.1",
     "expo": "~51.0.28",
     "expo-env": "^1.1.1",
     "expo-linear-gradient": "^13.0.2",

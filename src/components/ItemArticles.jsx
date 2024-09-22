@@ -1,14 +1,16 @@
-import React from 'react';
-import {Pressable, Text, StyleSheet, Image, View} from 'react-native';
-export default function ItemArticles({item, navigation}) {
+import React from "react";
+import { Pressable, Text, StyleSheet, Image, View } from "react-native";
+import { scaleHeight, scaleWidth } from "../utils/config";
+export default function ItemArticles({ item, navigation }) {
   // console.log(item);
   return (
     <Pressable
       style={styles.articleItem}
-      onPress={() => navigation.navigate('ArctilesDetails', {articles: item})}>
+      onPress={() => navigation.navigate("ArctilesDetails", { articles: item })}
+    >
       <View style={styles.containerImg}>
         <Image
-          source={{uri: item.image}}
+          source={{ uri: item.image }}
           style={styles.articleImage}
           resizeMode="cover"
         />
@@ -24,40 +26,40 @@ export default function ItemArticles({item, navigation}) {
 }
 const styles = StyleSheet.create({
   articleItem: {
-    flexDirection: 'row',
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    flexDirection: "row",
+    padding: 10 * scaleWidth,
+    marginVertical: 10 * scaleHeight,
+    backgroundColor: "#fff",
+    borderRadius: 10 * scaleWidth,
     borderWidth: 1,
-    borderColor: '#ddd',
-    shadowColor: '#000',
+    borderColor: "#ddd",
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 2, // Android shadow
   },
   containerImg: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   articleImage: {
-    width: 80,
-    height: 80,
+    width: 80 * scaleWidth,
+    height: 80 * scaleHeight,
     borderRadius: 10,
     marginRight: 10,
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   articleTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
+    fontSize: 18 * scaleWidth,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 4 * scaleHeight,
   },
   articleDescription: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 14 * scaleWidth,
+    color: "#666",
   },
 });

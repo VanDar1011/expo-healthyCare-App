@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Pressable, StyleSheet } from "react-native";
 // import LinearGradient from 'react-native-linear-gradient';
 import { LinearGradient } from "expo-linear-gradient";
-
+import { scaleHeight, scaleWidth } from "../utils/config";
 const GradientButton = ({ title, onPress }) => {
   return (
     <Pressable onPress={onPress} style={styles.btn_submit}>
@@ -26,15 +26,15 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   button: {
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 25,
+    paddingVertical: 15 * scaleHeight,
+    paddingHorizontal: 40 * scaleWidth,
+    borderRadius: 25 * scaleWidth,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 20 * scaleWidth,
     fontWeight: "bold",
   },
 });

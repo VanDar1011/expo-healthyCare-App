@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet} from 'react-native';
-import AppointmentItem from './ItemAppointment';
-import fetchAppointment from '../utils/appointment/fetchAppointment';
-import {getProfile} from '../utils/user/profileUser';
-export default function ListAppoinemt({profile}) {
+import React, { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet } from "react-native";
+import AppointmentItem from "./ItemAppointment";
+import fetchAppointment from "../utils/appointment/fetchAppointment";
+import { getProfile } from "../utils/user/profileUser";
+export default function ListAppoinemt({ profile }) {
   // const [profile, setProfile] = useState(null);
   // const [appointments, setAppoinments] = useState([]);
   // const fetchDataAppointment = useCallback(async () => {
@@ -35,19 +35,19 @@ export default function ListAppoinemt({profile}) {
           await fetchAppointment({
             userId: profile.userId,
             limit: 2,
-            status: 'done',
+            status: "done",
             setAppoinments,
           });
         }
       } catch (error) {
-        console.error('Error fetching profile or cart:', error);
+        console.error("Error fetching profile or cart:", error);
       }
     };
     fetchProfile();
   }, [profile]);
   return (
     <View style={styles.container}>
-      {appointments.map(appointment => (
+      {appointments.map((appointment) => (
         <AppointmentItem key={appointment.id} appointment={appointment} />
       ))}
     </View>

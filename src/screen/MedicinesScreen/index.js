@@ -25,9 +25,6 @@ export default function MedicinesScreen({ navigation }) {
     ), // 500ms delay
     [idCategory]
   );
-  // const implementSearchByKeyword = async () => {
-  //   searchMedicineByName(search, setMedicines);
-  // };
   const handleArrow = () => {
     navigation.navigate("BenefitScreen");
   };
@@ -61,29 +58,31 @@ export default function MedicinesScreen({ navigation }) {
           inputStyle={styles.searchBarInput}
         />
       </View>
-      <View style={styles.contaniner_note}>
-        <View style={styles.container_icon_note}>
-          <Image
-            source={require("../../assets/icon/note.png")}
-            style={styles.img_item_service}
-          />
-        </View>
-        <View>
-          <Text style={styles.text_title_note}>Lưu ý!</Text>
-          <Text>
-            Dùng thuốc cần theo chỉ định của bác sĩ,{"\n"}Không nên tự ý mua và
-            sử dụng
-          </Text>
-        </View>
-        <View style={styles.container_icon_note}>
-          <Pressable onPress={handleArrow}>
+      <Pressable onPress={handleArrow}>
+        <View style={styles.contaniner_note}>
+          <View style={styles.container_icon_note}>
             <Image
-              source={require("../../assets/icon/arrow.png")}
-              style={styles.icon_arrow}
+              source={require("../../assets/icon/note.png")}
+              style={styles.img_item_service}
             />
-          </Pressable>
+          </View>
+          <View>
+            <Text style={styles.text_title_note}>Lưu ý!</Text>
+            <Text style={styles.text_content_note}>
+              Dùng thuốc cần theo chỉ định của bác sĩ,{"\n"}Không nên tự ý mua
+              và sử dụng
+            </Text>
+          </View>
+          <View style={styles.container_icon_note}>
+            <Pressable onPress={handleArrow}>
+              <Image
+                source={require("../../assets/icon/arrow.png")}
+                style={styles.icon_arrow}
+              />
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </Pressable>
       <HorizontalScroll
         setMedicines={setMedicines}
         setIdCategory={setIdCategory}

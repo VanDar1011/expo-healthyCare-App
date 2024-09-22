@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Pressable, ScrollView} from 'react-native';
-import fetchMedicinesCategories from '../utils/medicines/fetchMedicineCategories';
-import ItemCategory from './ItemCategory';
-import fetchMedicinesByCategory from '../utils/medicines/fectchMedicinesByCategory';
-import fetchMedicines from '../utils/medicines/fetchMedicines';
-const HorizontalScroll = ({setMedicines, setIdCategory}) => {
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import fetchMedicinesCategories from "../utils/medicines/fetchMedicineCategories";
+import ItemCategory from "./ItemCategory";
+import fetchMedicinesByCategory from "../utils/medicines/fectchMedicinesByCategory";
+import fetchMedicines from "../utils/medicines/fetchMedicines";
+import { scaleHeight, scaleWidth } from "../utils/config";
+const HorizontalScroll = ({ setMedicines, setIdCategory }) => {
   const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const handlePressAll = async name => {
+  const handlePressAll = async (name) => {
     setSelectedOption(name);
     try {
       await fetchMedicines(setMedicines);
     } catch (error) {
-      console.error('Error fetching medicines:', error);
+      console.error("Error fetching medicines:", error);
     }
   };
   const handlePress = async (name, id) => {
@@ -22,7 +23,7 @@ const HorizontalScroll = ({setMedicines, setIdCategory}) => {
     try {
       await fetchMedicinesByCategory(id, setMedicines);
     } catch (error) {
-      console.error('Error fetching medicines:', error);
+      console.error("Error fetching medicines:", error);
     }
   };
   useEffect(() => {
@@ -36,18 +37,21 @@ const HorizontalScroll = ({setMedicines, setIdCategory}) => {
       <ScrollView
         horizontal
         style={styles.scrollView}
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <Pressable
           style={[
             styles.button,
-            selectedOption === 'all' && styles.activeButton,
+            selectedOption === "all" && styles.activeButton,
           ]}
-          onPress={() => handlePressAll('all')}>
+          onPress={() => handlePressAll("all")}
+        >
           <Text
             style={[
               styles.buttonText,
-              selectedOption === 'all' && styles.activeButtonText,
-            ]}>
+              selectedOption === "all" && styles.activeButtonText,
+            ]}
+          >
             All
           </Text>
         </Pressable>
@@ -139,31 +143,31 @@ const HorizontalScroll = ({setMedicines, setIdCategory}) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: '#f5f5f5',
+    padding: 10 * scaleWidth,
+    backgroundColor: "#f5f5f5",
   },
   scrollView: {
-    height: 60,
+    height: 60 * scaleHeight,
   },
   contentContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   button: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 10,
-    marginHorizontal: 10,
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    borderRadius: 15 * scaleWidth,
+    padding: 10 * scaleWidth,
+    marginHorizontal: 10 * scaleWidth,
+    alignItems: "center",
   },
   buttonText: {
-    fontSize: 16,
-    color: '#000',
+    fontSize: 16 * scaleWidth,
+    color: "#000",
   },
   activeButton: {
-    backgroundColor: '#59c606',
+    backgroundColor: "#59c606",
   },
   activeButtonText: {
-    color: '#fff',
+    color: "#fff",
   },
 });
 
