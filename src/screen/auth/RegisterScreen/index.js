@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,18 +7,18 @@ import {
   Alert,
   Image,
   Pressable,
-} from 'react-native';
-import styles from './style';
-import Icon from 'react-native-vector-icons/FontAwesome6';
-import {useForm, Controller} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import GradientButton from '../../../components/GradientButton';
-import {CheckBox} from 'react-native-elements';
+} from "react-native";
+import styles from "./style";
+import Icon from "react-native-vector-icons/FontAwesome6";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import GradientButton from "../../../components/GradientButton";
+import { CheckBox } from "react-native-elements";
 
-const API_APP = process.env['API_APP'];
+const API_APP = process.env["API_APP"];
 
-export default function RegisterScreen({navigation}) {
+export default function RegisterScreen({ navigation }) {
   const [isSecure, setIsSecure] = useState(true);
   const [isSecureConfirm, setIsSecureConfirm] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
@@ -33,57 +33,57 @@ export default function RegisterScreen({navigation}) {
     setIsSecureConfirm(!isSecureConfirm);
   };
   const schema = yup.object().shape({
-    user_name: yup.string().required('Name is required'),
-    email: yup.string().required('Email is required').email('Invalid email'),
+    user_name: yup.string().required("Tên trống"),
+    email: yup.string().required("Email trống").email("Invalid email"),
     password: yup
       .string()
-      .required('Password is required')
-      .min(8, 'Password must contain at least 8 characters')
+      .required("Mật khẩu trống")
+      .min(8, "Password must contain at least 8 characters")
       .matches(
         /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,26}$/,
-        `Must have number, uppercase, lowercase, non-alpha numeric number`,
+        `Must have number, uppercase, lowercase, non-alpha numeric number`
       ),
     confim_password: yup
       .string()
-      .required('Confirm_password is required')
-      .oneOf([yup.ref('password'), null], 'Passwords must match'),
+      .required("Nhập lại mật khẩu trống")
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      user_name: '',
-      email: '',
-      password: '',
-      confim_password: '',
+      user_name: "",
+      email: "",
+      password: "",
+      confim_password: "",
     },
   });
-  const onPressSend = async formData => {
+  const onPressSend = async (formData) => {
     // console.log(formData);
     try {
-      const {user_name, email, password} = formData;
-      const data = {name: user_name, email, password};
+      const { user_name, email, password } = formData;
+      const data = { name: user_name, email, password };
       // console.log(data);
       const res = await fetch(`${API_APP}/v1/api/auth/signup`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       if (!res.ok) {
         const result = await res.json();
         console.log(result.message);
-        Alert.alert('Register Failed', `${result.message}`);
+        Alert.alert("Register Failed", `${result.message}`);
         return;
       }
       const result = await res.json();
-      Alert.alert('Register Success', `${result.message}`);
-      navigation.navigate('Login');
+      Alert.alert("Register Success", `${result.message}`);
+      navigation.navigate("Login");
     } catch (error) {
       console.log(error);
     }
@@ -92,13 +92,13 @@ export default function RegisterScreen({navigation}) {
     if (isChecked) {
       // Logic to proceed to the next screen or action
       Alert.alert(
-        'Cảm ơn!',
-        'Bạn đã chấp nhận các điều khoản và chính sách quyền riêng tư.',
+        "Cảm ơn!",
+        "Bạn đã chấp nhận các điều khoản và chính sách quyền riêng tư."
       );
     } else {
       Alert.alert(
-        'Thông báo',
-        'Vui lòng chấp nhận các điều khoản và chính sách quyền riêng tư để tiếp tục.',
+        "Thông báo",
+        "Vui lòng chấp nhận các điều khoản và chính sách quyền riêng tư để tiếp tục."
       );
     }
   };
@@ -107,7 +107,7 @@ export default function RegisterScreen({navigation}) {
     <View style={styles.container}>
       <View style={styles.container_logo}>
         <Image
-          source={require('../../../assets/img/logo_stand.png')}
+          source={require("../../../assets/img/logo_stand.png")}
           style={styles.logo}
         />
       </View>
@@ -120,7 +120,7 @@ export default function RegisterScreen({navigation}) {
             rules={{
               required: true,
             }}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -141,7 +141,7 @@ export default function RegisterScreen({navigation}) {
             rules={{
               required: true,
             }}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -163,7 +163,7 @@ export default function RegisterScreen({navigation}) {
               rules={{
                 required: true,
               }}
-              render={({field: {onChange, value}}) => (
+              render={({ field: { onChange, value } }) => (
                 <TextInput
                   value={value}
                   onChangeText={onChange}
@@ -177,7 +177,7 @@ export default function RegisterScreen({navigation}) {
             <View style={styles.icon_eye}>
               <TouchableOpacity onPress={toggleSecureEntry}>
                 <Icon
-                  name={isSecure ? 'eye' : 'eye-slash'}
+                  name={isSecure ? "eye" : "eye-slash"}
                   size={15}
                   color="#000"
                 />
@@ -196,7 +196,7 @@ export default function RegisterScreen({navigation}) {
               rules={{
                 required: true,
               }}
-              render={({field: {onChange, value}}) => (
+              render={({ field: { onChange, value } }) => (
                 <TextInput
                   value={value}
                   onChangeText={onChange}
@@ -211,7 +211,7 @@ export default function RegisterScreen({navigation}) {
             <View style={styles.icon_eye}>
               <TouchableOpacity onPress={toggleSecureEntryConfirm}>
                 <Icon
-                  name={isSecureConfirm ? 'eye' : 'eye-slash'}
+                  name={isSecureConfirm ? "eye" : "eye-slash"}
                   size={15}
                   color="#000"
                 />
@@ -233,8 +233,9 @@ export default function RegisterScreen({navigation}) {
               textStyle={styles.checkboxText}
             />
             <Pressable
-              onPress={() => navigation.navigate('TermsPrivacyScreen')}>
-              <Text>Các điều khoản{' \n'} và chính sách quyền riêng tư</Text>
+              onPress={() => navigation.navigate("TermsPrivacyScreen")}
+            >
+              <Text>Các điều khoản{" \n"} và chính sách quyền riêng tư</Text>
             </Pressable>
           </View>
         </View>
@@ -247,7 +248,7 @@ export default function RegisterScreen({navigation}) {
         </View>
         <View style={styles.container_link_register}>
           <Text>Đã tài khoản ?</Text>
-          <Pressable onPress={() => navigation.navigate('Login')}>
+          <Pressable onPress={() => navigation.navigate("Login")}>
             <Text style={styles.text_link_register}>Đăng nhập</Text>
           </Pressable>
         </View>

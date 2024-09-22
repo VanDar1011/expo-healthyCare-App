@@ -1,7 +1,8 @@
-import React from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import ItemMedicines from './ItemMedicines';
-export default function ListMedicines({navigation, medicines}) {
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import ItemMedicines from "./ItemMedicines";
+import { scaleHeight, scaleWidth } from "../utils/config";
+export default function ListMedicines({ navigation, medicines }) {
   //   console.log(medicines);
   return (
     <ScrollView style={styles.view_holder}>
@@ -18,18 +19,18 @@ export default function ListMedicines({navigation, medicines}) {
 }
 const styles = StyleSheet.create({
   view_holder: {
-    paddingRight: 3,
+    paddingRight: 3 * scaleWidth,
   },
   title_medicine: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 15,
+    fontSize: 20 * scaleWidth,
+    fontWeight: "bold",
+    marginLeft: 15 * scaleWidth,
   },
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    // gap: 10,
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: 10 * scaleWidth,
   },
 });

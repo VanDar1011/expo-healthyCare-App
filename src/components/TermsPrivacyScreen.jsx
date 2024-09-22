@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {CheckBox, Button} from 'react-native-elements';
-
-const TermsPrivacyScreen = ({navigation}) => {
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { CheckBox, Button } from "react-native-elements";
+import { scaleHeight, scaleWidth } from "../utils/config";
+const TermsPrivacyScreen = ({ navigation }) => {
   const handleProceed = () => {
-    navigation.goBack('Register');
+    navigation.goBack("Register");
   };
 
   return (
@@ -37,26 +37,26 @@ const TermsPrivacyScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    padding: 20 * scaleWidth,
+    backgroundColor: "#f5f5f5",
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#333',
+    fontSize: 24 * scaleWidth,
+    fontWeight: "bold",
+    marginBottom: 20 * scaleHeight,
+    textAlign: "center",
+    color: "#333",
   },
   content: {
-    fontSize: 16,
-    marginBottom: 15,
-    color: '#555',
-    lineHeight: 22,
+    fontSize: 16 * scaleWidth,
+    marginBottom: 15 * scaleHeight,
+    color: "#555",
+    lineHeight: 22 * scaleWidth,
   },
   proceedButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 15,
-    borderRadius: 10,
+    backgroundColor: "#007bff",
+    paddingVertical: 15 * scaleHeight,
+    borderRadius: 10 * scaleWidth,
   },
 });
 

@@ -22,12 +22,19 @@ export default {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
+      package: "com.yourname.healthycare",
+    },
+    cli: {
+      appVersionSource: "project", // Specify the version source
     },
     web: {
       favicon: "./assets/favicon.png",
     },
     extra: {
       apiUrl: process.env.API_URL,
+      eas: {
+        projectId: "36b97486-5f93-4511-9b74-6dccfc139211",
+      },
     },
   },
 };
