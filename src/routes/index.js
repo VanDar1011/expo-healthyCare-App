@@ -2,19 +2,19 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
-import HomeVip from '../screen/HomeScreen';
-import CartScreen from '../screen/CartScreen';
-import LoginScreen from '../screen/auth/LoginScreen';
-import RegisterScreen from '../screen/auth/RegisterScreen';
-import AppointmentScreen from '../screen/AppointmentScreen';
-import ArticlesScreen from '../screen/ArticlesScreen';
-import AppointmentDetailsScreen from '../screen/AppointmentDetailsScreen';
+import HomeVip from '../screens/HomeScreen';
+import CartScreen from '../screens/CartScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import RegisterScreen from '../screens/auth/RegisterScreen';
+import AppointmentScreen from '../screens/AppointmentScreen';
+import ArticlesScreen from '../screens/ArticlesScreen';
+import AppointmentDetailsScreen from '../screens/AppointmentDetailsScreen';
 import MedicineBenefitScreen from '../components/MedicineBenefitScreen';
 import TermsPrivacyScreen from '../components/TermsPrivacyScreen';
-import DetailsMedicineScreen from '../screen/DetailsMedicineScreen';
-import MedicinesScreen from '../screen/MedicinesScreen';
-import ArcilesDetailsScreen from '../screen/ArctilesDetailsScreen';
-import ProfileScreen from '../screen/Profile';
+import DetailsMedicineScreen from '../screens/DetailsMedicineScreen';
+import MedicinesScreen from '../screens/MedicinesScreen';
+import ArcilesDetailsScreen from '../screens/ArctilesDetailsScreen';
+import ProfileScreen from '../screens/Profile';
 const Routes = () => {
   return (
     <NavigationContainer>

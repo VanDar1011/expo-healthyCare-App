@@ -8,10 +8,13 @@ import updateQuantity from "../../utils/order/updateQuantity";
 import paymentCart from "../../utils/order/paymentCart";
 import formatCurrency from "../../utils/formatMoney";
 import styles from "./style";
+import createPaymentIntent from "../../utils/payment/createPaymentIntent";
+import { useStripe } from "@stripe/stripe-react-native";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
-
+  const [totalAmount, setTotalAmount] = useState(0);
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const increaseQuantity = async (id) => {
     const quantity = items.find((item) => item.id === id).quantity;
     // console.log(quantity);
@@ -46,18 +49,47 @@ const CartScreen = () => {
   //   (total, item) => total + item.new_price * item.quantity,
   //   0,
   // );
-  const totalAmount = items
-    .filter((item) => itemsSelected.includes(item.id))
-    .reduce((total, item) => total + item.new_price * item.quantity, 0);
+  // const totalAmount = items
+  //   .filter((item) => itemsSelected.includes(item.id))
+  //   .reduce((total, item) => total + item.new_price * item.quantity, 0);
 
   const paymentCarts = async () => {
-    itemsSelected.map(async (id) => {
-      await paymentCart(id);
-    });
-    setItems((prevItems) =>
-      prevItems.filter((item) => !itemsSelected.includes(item.id))
-    );
-    setItemsSelected([]);
+    try {
+      // create payment intent
+      const responseCreatePaymentIntent = await createPaymentIntent(
+        totalAmount
+      );
+      if (responseCreatePaymentIntent.error) {
+        throw new Error(responseCreatePaymentIntent.error);
+      }
+      console.log(responseCreatePaymentIntent);
+      // initial payment sheet
+      const responseInitPayment = await initPaymentSheet({
+        merchantDisplayName: "notJust.dev",
+        paymentIntentClientSecret: responseCreatePaymentIntent.paymentIntent,
+        // defaultBillingDetails: {},
+      });
+      if (responseInitPayment.error) {
+        throw new Error(responseInitPayment.error);
+      }
+      // perent payment sheet from striple
+      const responsePaymentSheet = await presentPaymentSheet();
+      if (responsePaymentSheet.error) {
+        throw new Error(responsePaymentSheet.error);
+      }
+      console.log("checkout ok");
+      // if payment ok - > create order, change status, change item carts
+      itemsSelected.map(async (id) => {
+        await paymentCart(id);
+      });
+      setItems((prevItems) =>
+        prevItems.filter((item) => !itemsSelected.includes(item.id))
+      );
+      setItemsSelected([]);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
   };
   const selectItem = (id) => {
     console.log(id);
@@ -70,7 +102,12 @@ const CartScreen = () => {
   useEffect(() => {
     console.log("Items Selected:", itemsSelected);
   }, [itemsSelected]);
-
+  useEffect(() => {
+    const total = items
+      .filter((item) => itemsSelected.includes(item.id))
+      .reduce((total, item) => total + item.new_price * item.quantity, 0);
+    setTotalAmount(total);
+  }, [itemsSelected]);
   useEffect(() => {
     const fetchData = async () => {
       try {

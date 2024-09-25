@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Modal } from "react-native";
 import { scaleHeight, scaleWidth } from "../utils/config";
 const FullScreenLoading = ({ visible }) => {
+  console.log(visible);
   return (
     <Modal transparent={true} animationType="fade" visible={visible}>
       <View style={styles.container}>

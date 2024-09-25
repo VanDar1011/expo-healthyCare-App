@@ -11,14 +11,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 16 * scaleHeight,
   },
-  picker: {
-    height: 50 * scaleHeight,
-    width: "100%",
-    backgroundColor: "#fff",
-    marginBottom: 16 * scaleHeight,
-  },
-  list: {
-    marginTop: 16 * scaleHeight,
-  },
+  // picker: {
+  //   padding: 0,
+  //   margin: 0,
+  //   height: 80,
+  //   // width: "100%",
+  //   // backgroundColor: "white",
+  //   // marginBottom: 16,
+  //   color: "black",
+  // },
+  // list: {
+  //   marginTop: 46 * scaleHeight,
+  // },
 });
 export default styles;
