@@ -1,12 +1,7 @@
 import API_APP from "../config";
-const fetchAppointment = async ({
-  userId,
-  limit,
-  setAppoinments,
-  setLoading,
-  status,
-}) => {
+const fetchAppointment = async ({ userId, limit, setAppoinments, status }) => {
   try {
+    console.log("status", status);
     if (!userId) return;
     console.log("fetch appointment", userId);
     let url = `${API_APP}/v1/api/book-appointments?userId=${userId}&status=${status}`;
@@ -24,7 +19,7 @@ const fetchAppointment = async ({
       },
     });
     const dataRes = await res.json();
-    // console.log(dataRes.data.appointments);
+    console.log(dataRes.data.appointments);
     if (!res.ok) {
       throw new Error(dataRes.message || "Something went wrong");
     }
@@ -32,7 +27,7 @@ const fetchAppointment = async ({
   } catch (error) {
     console.error(error);
   } finally {
-    setLoading && setLoading(false);
+    console.log("Finally");
   }
 };
 export default fetchAppointment;

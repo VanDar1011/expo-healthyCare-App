@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const profileSlice = createSlice({
-  name: 'profile',
+  name: "profile",
   initialState: {
     userId: null,
     name: null,
@@ -11,12 +11,12 @@ export const profileSlice = createSlice({
       state.userId = action.payload.userId;
       state.name = action.payload.name;
     },
-    clearProfileRedux: state => {
+    clearProfileRedux: (state) => {
       state.userId = null;
       state.name = null;
     },
   },
 });
 
-export const {setProfileRedux, clearProfileRedux} = profileSlice.actions;
+export const { setProfileRedux, clearProfileRedux } = profileSlice.actions;
 export default profileSlice.reducer;
