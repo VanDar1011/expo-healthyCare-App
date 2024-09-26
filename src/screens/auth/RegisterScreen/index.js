@@ -15,8 +15,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GradientButton from "../../../components/GradientButton";
 import { CheckBox } from "react-native-elements";
-
-const API_APP = process.env["API_APP"];
+import API_APP from "../../../utils/config";
+// const API_APP = process.env["API_APP"];
 
 export default function RegisterScreen({ navigation }) {
   const [isSecure, setIsSecure] = useState(true);
