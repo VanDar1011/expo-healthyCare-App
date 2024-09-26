@@ -18,11 +18,16 @@ const paymentCart = async (id) => {
         },
       }),
     });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Something went wrong");
+    }
     const data = await res.json();
     console.log(data);
     return data;
   } catch (error) {
-    console.log(error.message);
+    console.log("Error fetching paymentCart:", error.message || error);
   }
 };
 export default paymentCart;

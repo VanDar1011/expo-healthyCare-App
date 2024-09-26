@@ -19,9 +19,9 @@ const Sidebar = ({ navigation, toggleSidebar, visible }) => {
   // console.log('profile: ', profile);
   const [translateX] = useState(new Animated.Value(-width * 0.75)); // 3/4 màn hình
   const fetchProfile = async () => {
-    const { userId, name } = await getProfile();
+    const { userId, name, email } = await getProfile();
     // console.log({userId, name});
-    setProfile({ userId, name });
+    setProfile({ userId, name, email });
   };
   useEffect(() => {
     fetchProfile();

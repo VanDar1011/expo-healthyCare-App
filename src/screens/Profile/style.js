@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 40 * scaleHeight,
   },
+  infoContainer: {
+    alignItems: "center",
+  },
   userName: {
     fontSize: 24 * scaleWidth,
     fontWeight: "bold",
@@ -18,18 +21,36 @@ const styles = StyleSheet.create({
   },
   userEmail: {
     fontSize: 16 * scaleWidth,
-    color: "#888",
+    color: "#4CD20A",
     marginTop: 5 * scaleHeight,
+  },
+  updateText: {
+    fontSize: 16 * scaleWidth,
+    color: "#4CD20A",
+    fontWeight: "bold",
+    marginVertical: 10 * scaleHeight,
+  },
+  editText: {
+    marginVertical: 10 * scaleHeight,
+  },
+  input: {
+    color: "black",
+    fontSize: 16 * scaleWidth,
+    borderColor: "#ccc",
+    borderWidth: 2,
+    borderRadius: 10 * scaleWidth,
+    paddingHorizontal: 20 * scaleWidth,
+    paddingVertical: 10 * scaleHeight,
   },
   logoutButton: {
     backgroundColor: "#FF3B30",
-    paddingVertical: 15 * scaleHeight,
-    paddingHorizontal: 60 * scaleWidth,
+    paddingVertical: 10 * scaleHeight,
+    paddingHorizontal: 20 * scaleWidth,
     borderRadius: 30 * scaleWidth,
   },
   logoutText: {
     color: "#fff",
-    fontSize: 18 * scaleWidth,
+    fontSize: 15 * scaleWidth,
     fontWeight: "bold",
   },
 });

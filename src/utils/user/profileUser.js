@@ -4,34 +4,39 @@ const getProfile = async () => {
   try {
     console.log("take profile");
     const userId = await AsyncStorage.getItem("user_id");
+    const email = await AsyncStorage.getItem("email");
     const name = await AsyncStorage.getItem("name");
-    if (userId !== null && name !== null) {
+    if (userId !== null && name !== null && email !== null) {
       console.log("User ID:", userId);
       console.log("Name:", name);
+      console.log("Email:", email);
       console.log("--------------------------------------");
       // Do something with the user ID, e.g., navigate to the home screen
     }
-    return { userId, name };
+    return { userId, name, email };
   } catch (e) {
-    console.error("Failed to retrieve the user ID.", e);
+    console.error("Failed to retrieve the profile user", e);
   }
 };
-const setProfile = async (userId, name) => {
+const setProfile = async (userId, name, email) => {
   try {
     console.log("set profile");
     await AsyncStorage.setItem("user_id", userId);
     await AsyncStorage.setItem("name", name);
+    await AsyncStorage.setItem("email", email);
     console.log("User ID saved successfully", userId);
     console.log("Name saved successfully", name);
+    console.log("Email saved successfully", email);
     console.log(".............................");
   } catch (e) {
-    console.error("Failed to save the user ID.", e);
+    console.error("Failed to save the profile user", e);
   }
 };
 const deleteProfile = async () => {
   try {
     await AsyncStorage.removeItem("user_id");
     await AsyncStorage.removeItem("name");
+    await AsyncStorage.removeItem("email");
     console.log("Profile deleted successfully");
   } catch (e) {
     console.error("Failed to delete the profile.", e);

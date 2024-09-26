@@ -1,7 +1,7 @@
 import API_APP from "../config";
-const fetchMedicines = async (setMedicines) => {
+const fetchDoctorGroupDetail = async (id, setDoctor) => {
   try {
-    const res = await fetch(`${API_APP}/v1/api/medicines`, {
+    const res = await fetch(`${API_APP}/v1/api/doctors?doctorGroupId=${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -12,9 +12,8 @@ const fetchMedicines = async (setMedicines) => {
       throw new Error(errData.message || "Something went wrong");
     }
     const data = await res.json();
-    setMedicines(data.data.medicines);
-  } catch (error) {
-    console.log("Error fetching fetchMedicines:", error.message || error);
-  }
+    setDoctor(data.data.doctors);
+  } catch (error) {}
 };
-export default fetchMedicines;
+
+export default fetchDoctorGroupDetail;

@@ -72,20 +72,27 @@ const styles = StyleSheet.create({
   },
   service_list: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    paddingVertical: 8 * scaleHeight,
   },
-  item_service: {
-    padding: 20 * scaleWidth,
+  container_item_service: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 20 * scaleWidth,
-    borderWidth: 2 * scaleWidth,
+    marginHorizontal: 2 * scaleWidth,
+  },
+  item_service: {
+    width: 72 * scaleWidth,
+    paddingVertical: 10 * scaleWidth,
+    paddingHorizontal: 8 * scaleWidth,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 18 * scaleWidth,
+    borderWidth: 3 * scaleWidth,
     borderColor: "#cccccc",
     zIndex: 1,
   },
   img_item_service: {
-    width: 40 * scaleWidth,
-    height: 40 * scaleHeight,
+    width: 30 * scaleWidth,
+    height: 30 * scaleHeight,
   },
   name_item_service: {
     textAlign: "center",

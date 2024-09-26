@@ -8,10 +8,14 @@ const fetchArticles = async (setArticles, setLoading) => {
         "Content-Type": "application/json",
       },
     });
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Something went wrong");
+    }
     const data = await res.json();
     setArticles(data.data.articles);
   } catch (error) {
-    console.error(error);
+    console.log("Erorr fetching fetchArticles :", error.message || error);
   } finally {
     setLoading(false);
   }

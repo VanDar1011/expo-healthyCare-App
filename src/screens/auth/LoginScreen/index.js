@@ -65,9 +65,11 @@ export default function LoginScreen({ navigation }) {
       console.log(result);
       const userId = result.data.id.toString();
       const name = result.data.name.toString();
+      const email = result.data.email.toString();
+
       console.log(userId, name);
-      await setProfile(userId, name);
-      dispatch(setProfileRedux({ userId, name }));
+      await setProfile(userId, name, email);
+      dispatch(setProfileRedux({ userId, name, email }));
       Alert.alert("Login Success", `${result.message}`);
       navigation.navigate("Home");
     } catch (error) {

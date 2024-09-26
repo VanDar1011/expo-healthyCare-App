@@ -1,22 +1,24 @@
 // ProfileScreen.js
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // or any other icon set
-import styles from './style';
-import {deleteProfile} from '../../utils/user/profileUser';
-import {clearProfileRedux} from '../../store/slice/profileSlice';
-import {useDispatch, useSelector} from 'react-redux';
-const ProfileScreen = ({navigation}) => {
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons"; // or any other icon set
+import styles from "./style";
+import { deleteProfile } from "../../utils/user/profileUser";
+import { clearProfileRedux } from "../../store/slice/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+const ProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { userId, email, name } = useSelector((state) => state.profile);
+  const [userName, setUserName] = useState(name);
+  const [userEmail, setUserEmail] = useState(email);
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(userName);
+  console.log(userId, name, email);
   const handleLogout = async () => {
     await deleteProfile();
     dispatch(clearProfileRedux());
-    navigation.navigate('Login');
+    navigation.navigate("Login");
   };
-
-  const [userName, setUserName] = useState('user1');
-  const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(userName);
 
   // Function to handle updating the name
   const handleUpdateName = () => {
@@ -38,22 +40,25 @@ const ProfileScreen = ({navigation}) => {
             style={styles.input}
           />
         ) : (
-          <Text style={styles.userName}>{userName}</Text>
+          <View style={styles.infoContainer}>
+            <Text style={styles.userName}>{userName}</Text>
+            <Text style={styles.userEmail}>{userEmail}</Text>
+          </View>
         )}
-
-        <Text style={styles.userEmail}>user1@gmail.com</Text>
 
         {/* Update Name Button */}
         {isEditing ? (
           <TouchableOpacity
             style={styles.updateButton}
-            onPress={handleUpdateName}>
+            onPress={handleUpdateName}
+          >
             <Text style={styles.updateText}>Cập nhật tên</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.editButton}
-            onPress={() => setIsEditing(true)}>
+            onPress={() => setIsEditing(true)}
+          >
             <Text style={styles.editText}>Sửa tên</Text>
           </TouchableOpacity>
         )}

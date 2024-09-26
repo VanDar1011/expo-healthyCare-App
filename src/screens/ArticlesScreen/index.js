@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
+import { scaleWidth } from "../../utils/config";
 import {
   View,
   Text,
@@ -6,11 +7,11 @@ import {
   ActivityIndicator,
   StyleSheet,
   Pressable,
-} from 'react-native';
+} from "react-native";
 
-import fetchArticles from '../../utils/articles/fetchArticles';
-import ItemArticles from '../../components/ItemArticles';
-const ArticlesScreen = ({navigation}) => {
+import fetchArticles from "../../utils/articles/fetchArticles";
+import ItemArticles from "../../components/ItemArticles";
+const ArticlesScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +20,7 @@ const ArticlesScreen = ({navigation}) => {
     fetchArticles(setArticles, setLoading);
   }, []);
 
-  const renderArticle = ({item}) => (
+  const renderArticle = ({ item }) => (
     <ItemArticles item={item} navigation={navigation} />
   );
 
@@ -33,7 +34,7 @@ const ArticlesScreen = ({navigation}) => {
       <View style={styles.containerList}>
         <FlatList
           data={articles}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderArticle}
         />
       </View>
@@ -45,14 +46,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   textTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    color: 'black',
-    textAlign: 'center',
+    color: "black",
+    textAlign: "center",
   },
   containerList: {
     flex: 1,
