@@ -11,6 +11,8 @@ import searchMedicineByName from "../../utils/medicines/searchMedicineByName";
 export default function MedicinesScreen({ navigation }) {
   const [medicines, setMedicines] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+
   // const [selectedOption, setSelectedOption] = useState(null);
   const [idCategory, setIdCategory] = useState(1);
 
@@ -32,7 +34,16 @@ export default function MedicinesScreen({ navigation }) {
     navigation.navigate("Cart");
   };
   useEffect(() => {
-    fetchMedicines(setMedicines);
+    const fethchData = async () => {
+      try {
+        fetchMedicines(setMedicines);
+      } catch (error) {
+        console.error("Error fetching medicines:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fethchData();
   }, []);
   return (
     <View style={styles.container}>
@@ -87,7 +98,11 @@ export default function MedicinesScreen({ navigation }) {
         setMedicines={setMedicines}
         setIdCategory={setIdCategory}
       />
-      <ListMedicines medicines={medicines} navigation={navigation} />
+      <ListMedicines
+        medicines={medicines}
+        loading={loading}
+        navigation={navigation}
+      />
     </View>
   );
 }

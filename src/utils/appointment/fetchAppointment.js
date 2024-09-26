@@ -18,16 +18,17 @@ const fetchAppointment = async ({ userId, limit, setAppoinments, status }) => {
         "Content-Type": "application/json",
       },
     });
-    const dataRes = await res.json();
-    console.log(dataRes.data.appointments);
     if (!res.ok) {
-      throw new Error(dataRes.message || "Something went wrong");
+      const errData = await res.json();
+      throw new Error(errData.message || "Something went wrong");
     }
-    setAppoinments(dataRes.data.appointments);
+    const data = await res.json();
+    // console.log(dataRes.data.appointments);
+    setAppoinments(data.data.appointments);
   } catch (error) {
-    console.error(error);
+    console.log("Error fetching fetchAppointments:", error.message || error);
   } finally {
-    console.log("Finally");
+    // console.log("Finally");
   }
 };
 export default fetchAppointment;

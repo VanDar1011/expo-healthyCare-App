@@ -4,21 +4,30 @@ const updateQuantity = async (id, quantity) => {
   // {"idOrder":28,
   //  "payload":{"quantity":8000,"status":"pending"}
   // }
-  const res = await fetch(`${API_APP}/v1/api/order`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      idOrder: id,
-      payload: {
-        quantity,
-        status: 'pending',
+  try {
+    const res = await fetch(`${API_APP}/v1/api/order`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    }),
-  });
-  const data = await res.json();
-  console.log(data);
-  return data;
+      body: JSON.stringify({
+        idOrder: id,
+        payload: {
+          quantity,
+          status: "pending",
+        },
+      }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Something went wrong");
+    }
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("Error fetching updateQuantity:", error.message || error);
+  }
 };
 export default updateQuantity;
