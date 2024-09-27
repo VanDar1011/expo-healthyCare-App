@@ -14,9 +14,11 @@ const bookAppointment = async ({ doctorId, userId, startTime, endTime }) => {
       throw new Error(errData.message || "Something went wrong");
     }
     const data = await res.json();
+    return data;
     console.log("Đặt hàng thành công", data);
   } catch (error) {
     console.log("Error bookAppointment:", error.message || error);
+    throw error;
   }
 };
 export default bookAppointment;

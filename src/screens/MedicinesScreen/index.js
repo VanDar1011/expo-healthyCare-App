@@ -8,7 +8,9 @@ import debounce from "lodash.debounce";
 import HorizontalScroll from "../../components/HorizontalScroll";
 import ListMedicines from "../../components/ListMedicines";
 import searchMedicineByName from "../../utils/medicines/searchMedicineByName";
-export default function MedicinesScreen({ navigation }) {
+import { useNavigation } from "@react-navigation/native";
+export default function MedicinesScreen() {
+  const navigation = useNavigation();
   const [medicines, setMedicines] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);

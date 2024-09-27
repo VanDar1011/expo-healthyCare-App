@@ -75,41 +75,39 @@ const AppointmentScheduler = ({ doctorId }) => {
     hideEndPicker();
   };
   const handleConfirmDateAndTime = async () => {
-    // Giả sử selectedDate là dạng "2024-09-27"
-    const dateParts = selectedDate.split("-"); // Tách thành mảng ngày tháng năm
-    const year = parseInt(dateParts[0], 10);
-    const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
-    const day = parseInt(dateParts[2], 10);
+    try {
+      const dateParts = selectedDate.split("-"); // Tách thành mảng ngày tháng năm
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
+      const day = parseInt(dateParts[2], 10);
 
-    // Thiết lập thời gian bắt đầu
-    const startDateTime = new Date(
-      year,
-      month,
-      day,
-      startTime.getHours(),
-      startTime.getMinutes()
-    );
-    // const startISO = startDateTime.toISOString(); // Chuyển đổi thành định dạng ISO 8601
+      // Thiết lập thời gian bắt đầu
+      const startDateTime = new Date(
+        year,
+        month,
+        day,
+        startTime.getHours(),
+        startTime.getMinutes()
+      );
 
-    // Thiết lập thời gian kết thúc
-    const endDateTime = new Date(
-      year,
-      month,
-      day,
-      endTime.getHours(),
-      endTime.getMinutes()
-    );
-    // const endISO = endDateTime.toISOString(); // Chuyển đổi thành định dạng ISO 8601
-    // console.log("startDateTime", startDateTime);
-    // console.log("endDateTime", endDateTime);
-    await bookAppointment({
-      doctorId,
-      userId,
-      startTime: startDateTime,
-      endTime: endDateTime,
-    });
-    // console.log("Thời gian bắt đầu:", startISO); // Kết quả: "2024-09-27T09:00:00.000Z"
-    // console.log("Thời gian kết thúc:", endISO); // Kết quả: "2024-09-27T12:30:00.000Z"
+      // Thiết lập thời gian kết thúc
+      const endDateTime = new Date(
+        year,
+        month,
+        day,
+        endTime.getHours(),
+        endTime.getMinutes()
+      );
+      const data = await bookAppointment({
+        doctorId,
+        userId,
+        startTime: startDateTime,
+        endTime: endDateTime,
+      });
+      Alert.alert("Đặt hàng", data.message);
+    } catch (error) {
+      Alert.alert("Lỗi", error.message);
+    }
   };
   return (
     <View style={styles.container}>
@@ -211,6 +209,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     columnGap: 10,
+    justifyContent: "center",
   },
   timeContainer: {
     padding: 15,

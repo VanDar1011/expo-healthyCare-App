@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 export default function ItemDoctor({ doctor, navigation }) {
   // console.log("Item doctors", doctor);
+  // const navigation = useNavigation();
   return (
     <Pressable
     //   onPress={() =>

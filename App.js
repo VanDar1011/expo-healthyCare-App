@@ -8,8 +8,37 @@ import { store } from "./src/store/store";
 import { Provider } from "react-redux";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { PUBLIC_KEY } from "./src/utils/config";
+import { useEffect } from "react";
+import * as Linking from "expo-linking";
+import { Alert } from "react-native";
 // console.log(PUBLIC_KEY);
 const App = () => {
+  useEffect(() => {
+    // Lấy URL nếu app được mở từ deep link khi khởi chạy
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        handleUrl(url);
+      }
+    });
+
+    // Lắng nghe sự kiện mở URL khi app đang chạy
+    const subscription = Linking.addEventListener("url", (event) => {
+      handleUrl(event.url);
+    });
+
+    return () => {
+      // Hủy đăng ký sự kiện khi component unmount
+      subscription.remove();
+    };
+  }, []);
+
+  const handleUrl = (url) => {
+    if (url.startsWith("myapp://stripe-redirect")) {
+      // Xử lý logic khi trở về từ thanh toán
+      Alert.alert("Payment completed!", "You have completed the payment.");
+    }
+    // Xử lý URL nhận được, điều hướng người dùng hoặc thực hiện hành động cần thiết
+  };
   return (
     <Provider store={store}>
       <GestureHandlerRootView>

@@ -20,19 +20,19 @@ export default function HomeVip({ navigation }) {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
-  const fetchProfile = async () => {
-    try {
-      const { userId, name, email } = await getProfile();
-      dispatch(setProfileRedux({ userId, name, email }));
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
+  // const fetchProfile = async () => {
+  //   try {
+  //     const { userId, name, email } = await getProfile();
+  //     dispatch(setProfileRedux({ userId, name, email }));
+  //   } catch (error) {
+  //     console.error("Error fetching profile:", error);
+  //   }
+  // };
 
   // Fetch profile when the component mounts or after a successful login
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row_logo}>
@@ -81,73 +81,74 @@ export default function HomeVip({ navigation }) {
       <View style={styles.service}>
         <Text style={styles.service_title}>Dịch vụ</Text>
 
-        <View>
-          <ScrollView
+        <View style={styles.service_list}>
+          {/* <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             style={styles.service_list}
-          >
-            <View style={styles.container_item_service}>
-              <Pressable
-                style={styles.item_service}
-                onPress={() => handleNavigate("Appointment")}
-              >
-                <Image
-                  source={require("../../assets/icon/medicalAppointment.png")}
-                  style={styles.img_item_service}
-                />
-              </Pressable>
-              <Text style={styles.name_item_service}>Đặt lịch</Text>
-            </View>
-            <View style={styles.container_item_service}>
-              <Pressable
-                style={styles.item_service}
-                onPress={() => handleNavigate("Medicines")}
-              >
-                <Image
-                  source={require("../../assets/icon/medicine.png")}
-                  style={styles.img_item_service}
-                />
-              </Pressable>
-              <Text style={styles.name_item_service}>Mua thuốc</Text>
-            </View>
-            <View style={styles.container_item_service}>
-              <Pressable
-                style={styles.item_service}
-                onPress={() => handleNavigate("Cart")}
-              >
-                <Image
-                  source={require("../../assets/icon/cart.png")}
-                  style={styles.img_item_service}
-                />
-              </Pressable>
-              <Text style={styles.name_item_service}>Giỏ hàng</Text>
-            </View>
-            <View style={styles.container_item_service}>
-              <Pressable
-                style={styles.item_service}
-                onPress={() => handleNavigate("DoctorGroup")}
-              >
-                <Image
-                  source={require("../../assets/icon/doctor_group.png")}
-                  style={styles.img_item_service}
-                />
-              </Pressable>
-              <Text style={styles.name_item_service}>Đặt lịch</Text>
-            </View>
-            <View style={styles.container_item_service}>
-              <Pressable
-                style={styles.item_service}
-                onPress={() => handleNavigate("Articles")}
-              >
-                <Image
-                  source={require("../../assets/icon/blog.png")}
-                  style={styles.img_item_service}
-                />
-              </Pressable>
-              <Text style={styles.name_item_service}>Bài viêt</Text>
-            </View>
-          </ScrollView>
+          > */}
+          {/* <View style={styles.container_item_service}>
+            <Pressable
+              style={styles.item_service}
+              onPress={() => handleNavigate("Appointment")}
+            >
+              <Image
+                source={require("../../assets/icon/medicalAppointment.png")}
+                style={styles.img_item_service}
+              />
+            </Pressable>
+            <Text style={styles.name_item_service}>Đặt lịch</Text>
+          </View> */}
+          <View style={styles.container_item_service}>
+            <Pressable
+              style={styles.item_service}
+              onPress={() => handleNavigate("Medicines")}
+            >
+              <Image
+                source={require("../../assets/icon/medicine.png")}
+                style={styles.img_item_service}
+              />
+            </Pressable>
+            <Text style={styles.name_item_service}>Mua thuốc</Text>
+          </View>
+          <View style={styles.container_item_service}>
+            <Pressable
+              style={styles.item_service}
+              onPress={() => handleNavigate("Cart")}
+            >
+              <Image
+                source={require("../../assets/icon/cart.png")}
+                style={styles.img_item_service}
+              />
+              {/* <Icon name="shopping-cart" size={30} color="#199" /> */}
+            </Pressable>
+            <Text style={styles.name_item_service}>Giỏ hàng</Text>
+          </View>
+          <View style={styles.container_item_service}>
+            <Pressable
+              style={styles.item_service}
+              onPress={() => handleNavigate("DoctorGroup")}
+            >
+              <Image
+                source={require("../../assets/icon/doctor_group.png")}
+                style={styles.img_item_service}
+              />
+            </Pressable>
+            <Text style={styles.name_item_service}>Đặt lịch</Text>
+          </View>
+          <View style={styles.container_item_service}>
+            <Pressable
+              style={styles.item_service}
+              onPress={() => handleNavigate("Articles")}
+            >
+              <Image
+                source={require("../../assets/icon/blog.png")}
+                style={styles.img_item_service}
+              />
+            </Pressable>
+            <Text style={styles.name_item_service}>Bài viêt</Text>
+          </View>
+          {/* </ScrollView> */}
         </View>
       </View>
       <View style={styles.appoiment_details}>

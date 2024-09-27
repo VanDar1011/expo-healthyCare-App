@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   },
   service_list: {
     flexDirection: "row",
+    justifyContent: "center",
     paddingVertical: 8 * scaleHeight,
   },
   container_item_service: {
@@ -80,9 +81,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 2 * scaleWidth,
   },
   item_service: {
-    width: 72 * scaleWidth,
-    paddingVertical: 10 * scaleWidth,
-    paddingHorizontal: 8 * scaleWidth,
+    width: 80 * scaleWidth,
+    paddingVertical: 12 * scaleWidth,
+    paddingHorizontal: 10 * scaleWidth,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 18 * scaleWidth,

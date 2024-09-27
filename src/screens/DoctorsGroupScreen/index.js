@@ -3,10 +3,11 @@ import { View, Text, Image, ScrollView, ActivityIndicator } from "react-native";
 import styles from "./style";
 import fetchDoctorGroup from "../../utils/doctorgroup/fetchDoctorGroup";
 import ItemDoctorGroup from "../../components/ItemDoctorGroup";
-export default function DoctorsGroupScreen({ navigation }) {
+import { useNavigation } from "@react-navigation/native";
+export default function DoctorsGroupScreen() {
   const [doctorGroups, setDoctorGroups] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation();
   useEffect(() => {
     const functionFetchDoctorGroup = async () => {
       try {
@@ -30,7 +31,7 @@ export default function DoctorsGroupScreen({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nhóm bác sĩ</Text>
+      <Text style={styles.title}>Đặt lịch khám </Text>
       <ScrollView
         // horizontal={true}
         showsHorizontalScrollIndicator={false}

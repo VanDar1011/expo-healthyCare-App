@@ -12,20 +12,23 @@ import {
 } from "react-native";
 import { getProfile } from "../utils/user/profileUser";
 import { scaleHeight, scaleWidth } from "../utils/config";
+import { useSelector } from "react-redux";
 const { width, height } = Dimensions.get("window"); // lấy cả chiều cao màn hình
 
 const Sidebar = ({ navigation, toggleSidebar, visible }) => {
-  const [profile, setProfile] = useState(null);
+  const { name } = useSelector((state) => state.profile);
+  console.log(name);
+  // const [profile, setProfile] = useState(null);
   // console.log('profile: ', profile);
   const [translateX] = useState(new Animated.Value(-width * 0.75)); // 3/4 màn hình
-  const fetchProfile = async () => {
-    const { userId, name, email } = await getProfile();
-    // console.log({userId, name});
-    setProfile({ userId, name, email });
-  };
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // const fetchProfile = async () => {
+  //   const { userId, name, email } = await getProfile();
+  //   // console.log({userId, name});
+  //   setProfile({ userId, name, email });
+  // };
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
   // Hiệu ứng mở và đóng Sidebar
   useEffect(() => {
     if (visible) {
@@ -59,7 +62,7 @@ const Sidebar = ({ navigation, toggleSidebar, visible }) => {
         <View style={styles.row_logo}>
           <View>
             <Text style={styles.text_profile}>
-              Chào <Text>{profile?.name}!</Text>
+              Chào <Text>{name ? name : "Bạn "}!</Text>
             </Text>
             <Text style={styles.text_hello}>Hôm nay bạn thế nào ?</Text>
           </View>

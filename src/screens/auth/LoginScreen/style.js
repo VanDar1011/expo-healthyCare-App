@@ -45,6 +45,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  container_no_login: {
+    width: "75%",
+    marginVertical: 15 * scaleHeight,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text_no_login: {
+    fontWeight: "bold",
+    color: "green",
+  },
   container_icon_input: {
     position: "relative",
     width: "100%",
