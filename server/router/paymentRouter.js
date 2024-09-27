@@ -10,13 +10,15 @@ router.post("/intents", async (req, res) => {
   // Create a Payment
   try {
     console.log("amount :", req.body.amount);
+    const { amount, userId } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: req.body.amount,
+      amount: amount,
       currency: "vnd",
       automatic_payment_methods: {
         enabled: true,
       },
       description: "Payment for order",
+      metadata: { userId: userId },
     });
     // Return the secret key
     res.json({

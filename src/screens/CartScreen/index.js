@@ -10,11 +10,13 @@ import formatCurrency from "../../utils/formatMoney";
 import styles from "./style";
 import createPaymentIntent from "../../utils/payment/createPaymentIntent";
 import { useStripe } from "@stripe/stripe-react-native";
+import { useSelector } from "react-redux";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const { userId, email, name } = useSelector((state) => state.profile);
   const increaseQuantity = async (id) => {
     const quantity = items.find((item) => item.id === id).quantity;
     // console.log(quantity);
@@ -67,6 +69,8 @@ const CartScreen = () => {
       const responseInitPayment = await initPaymentSheet({
         merchantDisplayName: "notJust.dev",
         paymentIntentClientSecret: responseCreatePaymentIntent.paymentIntent,
+        customerId: userId,
+        returnURL: "myapp://stripe-redirect",
         // defaultBillingDetails: {},
       });
       if (responseInitPayment.error) {
@@ -87,7 +91,7 @@ const CartScreen = () => {
       );
       setItemsSelected([]);
     } catch (e) {
-      console.error(e);
+      console.error("Error", e);
       return;
     }
   };

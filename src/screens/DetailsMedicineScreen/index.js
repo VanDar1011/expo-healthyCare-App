@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {View, Image, ScrollView, Pressable} from 'react-native';
-import {Text} from 'react-native-elements';
-import styles from './style';
-import formatCurrency from '../../utils/formatMoney';
-import {getProfile} from '../../utils/user/profileUser';
-import buyMedicines from '../../utils/medicines/buyMedinces';
-import BuyMedicineModel from '../../components/Modal/BuyMedicineModel';
-export default function DetailsMedicineScreen({route, navigation}) {
-  const {item} = route.params;
+import React, { useState } from "react";
+import { View, Image, ScrollView, Pressable } from "react-native";
+import { Text } from "react-native-elements";
+import styles from "./style";
+import formatCurrency from "../../utils/formatMoney";
+import { getProfile } from "../../utils/user/profileUser";
+import buyMedicines from "../../utils/medicines/buyMedinces";
+import BuyMedicineModel from "../../components/Modal/BuyMedicineModel";
+import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+export default function DetailsMedicineScreen() {
+  // console.log("Router", route);
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { item } = route.params;
   // console.log('medicine detail', item);
   const [medicine, setMedicine] = useState(item);
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,13 +36,13 @@ export default function DetailsMedicineScreen({route, navigation}) {
     // console.log('Quantity', quantity);
     // "user_id":2, "product_id": 1, "quantity":2, "status":"pending","name":1,"description":"abc","old_price":1000,"new_price":
     // 10000
-    const {userId} = await getProfile();
+    const { userId } = await getProfile();
     // console.log({userId});
     const data = {
       user_id: +userId,
       product_id: medicine.id,
       quantity,
-      status: 'pending',
+      status: "pending",
       image: medicine.image,
       name: medicine.name,
       description: medicine.description,
@@ -47,7 +52,7 @@ export default function DetailsMedicineScreen({route, navigation}) {
     await buyMedicines(data);
     setQuantity(1);
     setModalVisible(false);
-    navigation.navigate('Medicines');
+    navigation.navigate("Medicines");
   };
   const handleCloseModal = () => {
     setModalVisible(false);
@@ -56,7 +61,7 @@ export default function DetailsMedicineScreen({route, navigation}) {
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={{uri: medicine.image}} style={styles.medicineImage} />
+      <Image source={{ uri: medicine.image }} style={styles.medicineImage} />
       <View style={styles.detailContainer}>
         <Text style={styles.medicineName}>{medicine.name}</Text>
         <Text style={styles.medicineDescription}>{medicine.description}</Text>

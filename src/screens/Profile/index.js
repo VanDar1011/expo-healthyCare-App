@@ -6,14 +6,16 @@ import styles from "./style";
 import { deleteProfile } from "../../utils/user/profileUser";
 import { clearProfileRedux } from "../../store/slice/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
-const ProfileScreen = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+const ProfileScreen = () => {
   const dispatch = useDispatch();
   const { userId, email, name } = useSelector((state) => state.profile);
   const [userName, setUserName] = useState(name);
   const [userEmail, setUserEmail] = useState(email);
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(userName);
-  console.log(userId, name, email);
+  const navigation = useNavigation();
+  // console.log(userId, name, email);
   const handleLogout = async () => {
     await deleteProfile();
     dispatch(clearProfileRedux());

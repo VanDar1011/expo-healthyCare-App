@@ -3,7 +3,11 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { scaleHeight, scaleWidth } from "../utils/config";
 const AppointmentItem = ({ appointment }) => {
   const { group, doctor, startTime, endTime, status } = appointment;
-
+  const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  const formattedStartDate = new Date(startTime).toLocaleDateString(
+    undefined,
+    options
+  );
   // Định dạng thời gian (có thể sử dụng thư viện moment.js để dễ hơn)
   const formattedStartTime = new Date(startTime).toLocaleTimeString();
   const formattedEndTime = new Date(endTime).toLocaleTimeString();
@@ -17,6 +21,7 @@ const AppointmentItem = ({ appointment }) => {
         <Text style={styles.time}>
           {formattedStartTime} - {formattedEndTime}
         </Text>
+        <Text style={styles.dateText}>{formattedStartDate}</Text>
       </View>
     </View>
   );
@@ -63,6 +68,11 @@ const styles = StyleSheet.create({
     fontSize: 14 * scaleWidth,
     color: "#888",
     marginBottom: 6 * scaleHeight,
+  },
+  dateText: {
+    fontSize: 18,
+    color: "#333",
+    fontWeight: "bold",
   },
 });
 

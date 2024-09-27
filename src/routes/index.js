@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-const Stack = createNativeStackNavigator();
+import ProtectedRoute from "../components/ProtectedRoute";
 import HomeVip from "../screens/HomeScreen";
 import CartScreen from "../screens/CartScreen";
 import LoginScreen from "../screens/auth/LoginScreen";
@@ -17,10 +17,13 @@ import ArcilesDetailsScreen from "../screens/ArctilesDetailsScreen";
 import ProfileScreen from "../screens/Profile";
 import DoctorsGroupScreen from "../screens/DoctorsGroupScreen";
 import DoctorsGroupDetailScreen from "../screens/DoctorsGroupDetailScreen";
+import { useSelector } from "react-redux";
+const Stack = createNativeStackNavigator();
 const Routes = () => {
+  const { userId } = useSelector((state) => state.profile);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Home"
           component={HomeVip}
@@ -31,26 +34,7 @@ const Routes = () => {
           component={MedicinesScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="DetailsMedicine"
-          component={DetailsMedicineScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Cart"
-          component={CartScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Appointment"
-          component={AppointmentScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AppointmentDetails"
-          component={AppointmentDetailsScreen}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="Articles"
           component={ArticlesScreen}
@@ -61,24 +45,10 @@ const Routes = () => {
           component={ArcilesDetailsScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="DoctorGroup"
-          component={DoctorsGroupScreen}
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="DoctorGroupDetail"
           component={DoctorsGroupDetailScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="BenefitScreen"
-          component={MedicineBenefitScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -96,6 +66,57 @@ const Routes = () => {
           component={RegisterScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="BenefitScreen"
+          component={MedicineBenefitScreen}
+          options={{ headerShown: false }}
+        />
+        {/* // require Login */}
+        <Stack.Screen name="Appointment" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <AppointmentScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="DetailsMedicine" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <DetailsMedicineScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="DoctorGroup" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <DoctorsGroupScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Profile" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <ProfileScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="AppointmentDetails"
+          options={{ headerShown: false }}
+        >
+          {() => (
+            <ProtectedRoute>
+              <AppointmentDetailsScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Cart" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <CartScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

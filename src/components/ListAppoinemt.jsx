@@ -63,7 +63,7 @@ export default function ListAppoinemt({ profile }) {
 }
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 4,
     flex: 1,
   },
   text_center: {

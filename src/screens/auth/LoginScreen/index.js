@@ -76,6 +76,10 @@ export default function LoginScreen({ navigation }) {
       console.log(error);
     }
   };
+  const handleNoLogin = () => {
+    navigation.navigate("Home");
+  };
+
   return (
     // <ImageBackground
     //   source={require('../assets/img/bg.jpg')} // Replace with your image URL
@@ -141,11 +145,12 @@ export default function LoginScreen({ navigation }) {
         </View>
       </View>
       <View style={styles.container_btn_submit}>
-        <GradientButton
-          title="Đăng nhập"
-          onPress={handleSubmit(onPressSend)}
-          // onPress={onPressSend}
-        />
+        <GradientButton title="Đăng nhập" onPress={handleSubmit(onPressSend)} />
+      </View>
+      <View style={styles.container_no_login}>
+        <Pressable onPress={handleNoLogin}>
+          <Text style={styles.text_no_login}>Không đăng nhập</Text>
+        </Pressable>
       </View>
       <View style={styles.container_link_register}>
         <Text>Chưa có tài khoản ?</Text>
