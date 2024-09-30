@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 20 * scaleWidth,
-    width: 100 * scaleWidth,
+    width: 150 * scaleWidth,
     padding: 10 * scaleHeight,
   },
   text_button_appoiment: {
