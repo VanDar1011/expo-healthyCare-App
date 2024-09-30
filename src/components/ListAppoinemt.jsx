@@ -4,6 +4,7 @@ import AppointmentItem from "./ItemAppointment";
 import fetchAppointment from "../utils/appointment/fetchAppointment";
 import { getProfile } from "../utils/user/profileUser";
 export default function ListAppoinemt({ profile }) {
+  // console.log("profile user", profile);
   // const [profile, setProfile] = useState(null);
   // const [appointments, setAppoinments] = useState([]);
   // const fetchDataAppointment = useCallback(async () => {

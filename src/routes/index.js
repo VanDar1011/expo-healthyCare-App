@@ -7,6 +7,7 @@ import CartScreen from "../screens/CartScreen";
 import LoginScreen from "../screens/auth/LoginScreen";
 import RegisterScreen from "../screens/auth/RegisterScreen";
 import AppointmentScreen from "../screens/AppointmentScreen";
+import AppointmentNowScreen from "../screens/AppointmentNowScreen";
 import ArticlesScreen from "../screens/ArticlesScreen";
 import AppointmentDetailsScreen from "../screens/AppointmentDetailsScreen";
 import MedicineBenefitScreen from "../components/MedicineBenefitScreen";
@@ -18,6 +19,7 @@ import ProfileScreen from "../screens/Profile";
 import DoctorsGroupScreen from "../screens/DoctorsGroupScreen";
 import DoctorsGroupDetailScreen from "../screens/DoctorsGroupDetailScreen";
 import { useSelector } from "react-redux";
+import MapScreen from "../screens/MapScreen";
 const Stack = createNativeStackNavigator();
 const Routes = () => {
   const { userId } = useSelector((state) => state.profile);
@@ -71,11 +73,23 @@ const Routes = () => {
           component={MedicineBenefitScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ headerShown: false }}
+        />
         {/* // require Login */}
         <Stack.Screen name="Appointment" options={{ headerShown: false }}>
           {() => (
             <ProtectedRoute>
               <AppointmentScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="AppointmentNow" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <AppointmentNowScreen />
             </ProtectedRoute>
           )}
         </Stack.Screen>

@@ -34,6 +34,7 @@ export default {
       apiUrl: process.env.API_URL,
       apiUrlPayment: process.env.API_URL_PAYMENT,
       publicKey: process.env.PUBLIC_KEY,
+      googleKey: process.env.GOOGLE_KEY,
       eas: {
         projectId: "36b97486-5f93-4511-9b74-6dccfc139211",
       },
