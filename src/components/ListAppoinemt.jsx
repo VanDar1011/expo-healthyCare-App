@@ -3,6 +3,8 @@ import { View, StyleSheet, Text } from "react-native";
 import AppointmentItem from "./ItemAppointment";
 import fetchAppointment from "../utils/appointment/fetchAppointment";
 import { getProfile } from "../utils/user/profileUser";
+import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 export default function ListAppoinemt({ profile }) {
   // console.log("profile user", profile);
   // const [profile, setProfile] = useState(null);
@@ -29,6 +31,7 @@ export default function ListAppoinemt({ profile }) {
   //
   // const [profile, setProfile] = useState(null);
   const [appointments, setAppoinments] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -50,9 +53,15 @@ export default function ListAppoinemt({ profile }) {
     <View style={styles.container}>
       {!appointments.length ? (
         <View style={styles.container_text}>
-          <Text style={styles.text_center}>
-            "Bạn chưa có lịch hẹn nào, đặt ngay"
-          </Text>
+          <Text style={styles.text_center}>"Bạn chưa có lịch hẹn nào!"</Text>
+          <TouchableOpacity
+            style={styles.btnBookNow}
+            onPress={() => {
+              navigation.navigate("DoctorGroup");
+            }}
+          >
+            <Text style={styles.textBook}>Đặt ngay</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         appointments.map((appointment) => (
@@ -63,6 +72,19 @@ export default function ListAppoinemt({ profile }) {
   );
 }
 const styles = StyleSheet.create({
+  textBook: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#ffffff",
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    letterSpacing: 1.2,
+  },
+  btnBookNow: {
+    backgroundColor: "#2ecc71",
+    borderRadius: 8,
+  },
   container: {
     padding: 4,
     flex: 1,
@@ -90,7 +112,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ff6347",
+    color: "#2ecc71",
     paddingVertical: 15,
     letterSpacing: 1.2,
     lineHeight: 24,

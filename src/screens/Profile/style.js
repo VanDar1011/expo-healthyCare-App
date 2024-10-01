@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   userName: {
-    fontSize: 24 * scaleWidth,
+    fontSize: 20 * scaleWidth,
     fontWeight: "bold",
     marginTop: 10 * scaleHeight,
+    marginBottom: 5 * scaleHeight,
   },
   userEmail: {
     fontSize: 16 * scaleWidth,
-    color: "#4CD20A",
     marginTop: 5 * scaleHeight,
   },
   updateText: {
@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     marginVertical: 10 * scaleHeight,
   },
   editText: {
-    marginVertical: 10 * scaleHeight,
+    marginVertical: 14 * scaleHeight,
+    fontSize: 16 * scaleWidth,
+    color: "#3498db",
   },
   input: {
     color: "black",
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10 * scaleHeight,
   },
   logoutButton: {
-    backgroundColor: "#FF3B30",
+    backgroundColor: "#2ecc71",
     paddingVertical: 10 * scaleHeight,
     paddingHorizontal: 20 * scaleWidth,
     borderRadius: 30 * scaleWidth,

@@ -39,6 +39,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16 * scaleWidth,
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  noCart: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textNoProduct: {
+    fontSize: 20 * scaleWidth,
+    marginBottom: 10 * scaleHeight,
+    textAlign: "center",
   },
 });
 export default styles;
