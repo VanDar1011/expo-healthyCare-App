@@ -32,7 +32,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       {/* Profile Info */}
       <View style={styles.profileContainer}>
-        <Icon name="account-circle" size={100} color="#4F8EF7" />
+        <Icon name="account-circle" size={100} color="#2ecc71" />
 
         {/* Editable name field */}
         {isEditing ? (
@@ -43,8 +43,8 @@ const ProfileScreen = () => {
           />
         ) : (
           <View style={styles.infoContainer}>
-            <Text style={styles.userName}>{userName}</Text>
-            <Text style={styles.userEmail}>{userEmail}</Text>
+            <Text style={styles.userName}>Họ Tên: {userName}</Text>
+            <Text style={styles.userEmail}>Email: {userEmail}</Text>
           </View>
         )}
 
@@ -61,7 +61,7 @@ const ProfileScreen = () => {
             style={styles.editButton}
             onPress={() => setIsEditing(true)}
           >
-            <Text style={styles.editText}>Sửa tên</Text>
+            <Text style={styles.editText}>Cập nhật thông tin</Text>
           </TouchableOpacity>
         )}
       </View>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import CartItem from "../../components/ItemCart"; // Đảm bảo bạn đã tạo CartItem component
 import fetchOrderById from "../../utils/order/fetchOrderById";
 import { getProfile } from "../../utils/user/profileUser";
@@ -11,12 +12,14 @@ import styles from "./style";
 import createPaymentIntent from "../../utils/payment/createPaymentIntent";
 import { useStripe } from "@stripe/stripe-react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { userId, email, name } = useSelector((state) => state.profile);
+  const navigation = useNavigation();
   const increaseQuantity = async (id) => {
     const quantity = items.find((item) => item.id === id).quantity;
     // console.log(quantity);
@@ -136,6 +139,36 @@ const CartScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Giỏ Hàng</Text>
+      {items.length ? (
+        <FlatList
+          data={items}
+          renderItem={({ item }) => (
+            <CartItem
+              item={item}
+              onIncrease={increaseQuantity}
+              onDecrease={decreaseQuantity}
+              onDelete={deleteItem}
+              selectItem={selectItem}
+              itemsSelected={itemsSelected}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          style={styles.list}
+        />
+      ) : (
+        <View style={styles.noCart}>
+          <Icon name="cart" size={40} />
+          <Text style={styles.textNoProduct}>Không có sản phẩm nào</Text>
+          <TouchableOpacity
+            style={styles.checkoutButton}
+            onPress={() => {
+              navigation.navigate("Medicines");
+            }}
+          >
+            <Text style={styles.checkoutButtonText}>Mua ngay</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <FlatList
         data={items}
         renderItem={({ item }) => (
@@ -154,7 +187,11 @@ const CartScreen = () => {
       <View style={styles.footer}>
         <Text style={styles.totalText}>Thành Tiền:</Text>
         <Text style={styles.totalAmount}>{formatCurrency(totalAmount)}</Text>
-        <TouchableOpacity style={styles.checkoutButton} onPress={paymentCarts}>
+        <TouchableOpacity
+          disabled={!items.length}
+          style={styles.checkoutButton}
+          onPress={paymentCarts}
+        >
           <Text style={styles.checkoutButtonText}>Thanh Toán</Text>
         </TouchableOpacity>
       </View>
