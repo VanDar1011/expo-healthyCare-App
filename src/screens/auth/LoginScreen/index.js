@@ -22,6 +22,11 @@ import API_APP from "../../../utils/config"; // lay bien moi truong
 // console.log(API_APP, test);
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
+  const { userId, name, email } = useSelector((state) => state.profile);
+  console.log(userId, name, email);
+  if (userId !== null && name !== null && email !== null) {
+    navigation.navigate("Home");
+  }
   const [isSecure, setIsSecure] = useState(true);
 
   const toggleSecureEntry = () => {

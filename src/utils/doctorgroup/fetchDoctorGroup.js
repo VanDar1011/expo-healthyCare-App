@@ -1,5 +1,5 @@
 import API_APP from "../config";
-const fetchDoctorGroup = async (setDoctorGroup) => {
+const fetchDoctorGroup = async (setDoctorGroup, flag) => {
   try {
     const res = await fetch(`${API_APP}/v1/api/doctor-group`, {
       method: "GET",
@@ -14,7 +14,12 @@ const fetchDoctorGroup = async (setDoctorGroup) => {
     }
 
     const data = await res.json();
-    setDoctorGroup(data.data.doctorGroups);
+    if (flag) {
+      console.log(data.data.doctorGroups);
+      setDoctorGroup(data.data.doctorGroups);
+    } else {
+      setDoctorGroup(data.data.doctorGroups);
+    }
   } catch (error) {
     console.log("Error fetching fetchDoctorGroup:", error.message || error);
   }

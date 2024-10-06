@@ -67,8 +67,8 @@ export default function HomeVip({ navigation }) {
             </Text>
             <Pressable
               style={styles.container_button_appoiment}
-              // onPress={() => handleNavigate("AppointmentNow")}
-              onPress={() => handleNavigate("Map")}
+              onPress={() => handleNavigate("AppointmentNow")}
+              // onPress={() => handleNavigate("Map")}
             >
               <Text style={styles.text_button_appoiment}>Đặt ngay</Text>
             </Pressable>
