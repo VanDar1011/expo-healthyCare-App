@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import GradientButton from "../../../components/GradientButton";
-import { setProfile } from "../../../utils/user/profileUser";
+import { setProfile, getProfile } from "../../../utils/user/profileUser";
 import { setProfileRedux } from "../../../store/slice/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 // const API_APP = process.env['API_APP'];
@@ -24,9 +24,13 @@ export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const { userId, name, email } = useSelector((state) => state.profile);
   console.log(userId, name, email);
-  if (userId !== null && name !== null && email !== null) {
-    navigation.navigate("Home");
-  }
+  // if (userId && name && email) {
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: [{ name: "Home" }],
+  //   });
+  //   // navigation.navigate("Home");
+  // }
   const [isSecure, setIsSecure] = useState(true);
 
   const toggleSecureEntry = () => {
@@ -73,10 +77,14 @@ export default function LoginScreen({ navigation }) {
       const email = result.data.email.toString();
 
       console.log(userId, name);
-      await setProfile(userId, name, email);
       dispatch(setProfileRedux({ userId, name, email }));
+      await setProfile(userId, name, email);
       Alert.alert("Login Success", `${result.message}`);
-      navigation.navigate("Home");
+      // navigation.navigate("Home");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" }],
+      });
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +92,20 @@ export default function LoginScreen({ navigation }) {
   const handleNoLogin = () => {
     navigation.navigate("Home");
   };
-
+  useEffect(() => {
+    const checkProfile = async () => {
+      const profile = await getProfile();
+      if (profile.userId && profile.name && profile.email) {
+        dispatch(setProfileRedux({ userId, name, email }));
+        // Navigate to Home if the user is already logged in
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+      }
+    };
+    checkProfile();
+  }, []);
   return (
     // <ImageBackground
     //   source={require('../assets/img/bg.jpg')} // Replace with your image URL
