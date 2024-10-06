@@ -5,6 +5,7 @@
     "jsEngine": "hermes",
     "version": "1.0.0",
     "scheme": "myapp",
+    "platform": "expo",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
