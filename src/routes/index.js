@@ -78,11 +78,11 @@ const Routes = () => {
           component={MapScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="AppointmentNow"
           component={AppointmentNowScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         {/* // require Login */}
         <Stack.Screen name="Appointment" options={{ headerShown: false }}>
           {() => (
@@ -93,13 +93,13 @@ const Routes = () => {
         </Stack.Screen>
 
         {/* // comment require Login */}
-        {/* <Stack.Screen name="AppointmentNow" options={{ headerShown: false }}>
+        <Stack.Screen name="AppointmentNow" options={{ headerShown: false }}>
           {() => (
             <ProtectedRoute>
               <AppointmentNowScreen />
             </ProtectedRoute>
           )}
-        </Stack.Screen> */}
+        </Stack.Screen>
         <Stack.Screen name="DetailsMedicine" options={{ headerShown: false }}>
           {() => (
             <ProtectedRoute>

@@ -9,6 +9,7 @@ import ListAppoinemt from "../../components/ListAppoinemt";
 import { useDispatch, useSelector } from "react-redux";
 export default function HomeVip({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
+
   // const [profile, setProfile] = useState(null);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
