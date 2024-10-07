@@ -14,7 +14,16 @@ const AppointmentItem = ({ appointment }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: doctor.image }} style={styles.image} />
+      {/* <Image source={{ uri: doctor.image }} style={styles.image} /> */}
+      <Image
+        source={{
+          uri: doctor?.image
+            ? doctor.image
+            : // : require("../assets/img/profile.jpg"),
+              "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=",
+        }}
+        style={styles.image}
+      />
       <View style={styles.infoContainer}>
         <Text style={styles.doctorName}>{doctor.name}</Text>
         <Text style={styles.doctor_group}>{doctor.group}</Text>

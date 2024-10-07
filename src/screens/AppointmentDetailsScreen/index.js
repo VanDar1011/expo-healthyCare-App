@@ -12,15 +12,17 @@ import { getProfile } from "../../utils/user/profileUser";
 import styles from "./style";
 import fetchAppointment from "../../utils/appointment/fetchAppointment";
 import FullScreenLoading from "../../components/FulllScreenLoading";
+import { useDispatch, useSelector } from "react-redux";
 const AppointmentListScreen = () => {
   const [appointments, setAppoinments] = useState([]);
   const [status, setStatus] = useState("all"); // default filter
   const [loading, setLoading] = useState(true);
-
+  const { userId, email, name } = useSelector((state) => state.profile);
+  // const
   const fetchDataAppointment = useCallback(async () => {
     try {
-      const { userId, name } = await getProfile();
-      console.log({ userId, name });
+      // const { userId, name } = await getProfile();
+      // console.log({ userId, name });
       fetchAppointment({
         userId: userId,
         setAppoinments,
