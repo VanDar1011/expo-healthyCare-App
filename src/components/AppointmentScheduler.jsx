@@ -98,11 +98,15 @@ const AppointmentScheduler = ({ doctorId }) => {
         endTime.getHours(),
         endTime.getMinutes()
       );
+      const branch_id = null;
       const data = await bookAppointment({
         doctorId,
         userId,
         startTime: startDateTime,
         endTime: endDateTime,
+        branch_id,
+        phone: null,
+        specialist_id: null,
       });
       Alert.alert("Đặt hàng", data.message);
     } catch (error) {
