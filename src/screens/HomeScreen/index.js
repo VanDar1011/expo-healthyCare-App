@@ -21,19 +21,19 @@ export default function HomeVip({ navigation }) {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
-  // const fetchProfile = async () => {
-  //   try {
-  //     const { userId, name, email } = await getProfile();
-  //     dispatch(setProfileRedux({ userId, name, email }));
-  //   } catch (error) {
-  //     console.error("Error fetching profile:", error);
-  //   }
-  // };
+  const fetchProfile = async () => {
+    try {
+      const { userId, name, email } = await getProfile();
+      dispatch(setProfileRedux({ userId, name, email }));
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
 
   // Fetch profile when the component mounts or after a successful login
-  // useEffect(() => {
-  //   fetchProfile();
-  // }, []);
+  useEffect(() => {
+    fetchProfile();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row_logo}>

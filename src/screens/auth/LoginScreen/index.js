@@ -90,7 +90,11 @@ export default function LoginScreen({ navigation }) {
     }
   };
   const handleNoLogin = () => {
-    navigation.navigate("Home");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
+    // navigation.navigate("Home");
   };
   useEffect(() => {
     const checkProfile = async () => {

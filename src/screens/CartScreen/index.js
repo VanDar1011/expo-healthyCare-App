@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CartItem from "../../components/ItemCart"; // Đảm bảo bạn đã tạo CartItem component
 import fetchOrderById from "../../utils/order/fetchOrderById";
@@ -89,6 +89,7 @@ const CartScreen = () => {
       itemsSelected.map(async (id) => {
         await paymentCart(id);
       });
+      Alert.alert("Thanh toán thành công");
       setItems((prevItems) =>
         prevItems.filter((item) => !itemsSelected.includes(item.id))
       );
@@ -169,7 +170,7 @@ const CartScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-      <FlatList
+      {/* <FlatList
         data={items}
         renderItem={({ item }) => (
           <CartItem
@@ -183,7 +184,7 @@ const CartScreen = () => {
         )}
         keyExtractor={(item) => item.id}
         style={styles.list}
-      />
+      /> */}
       <View style={styles.footer}>
         <Text style={styles.totalText}>Thành Tiền:</Text>
         <Text style={styles.totalAmount}>{formatCurrency(totalAmount)}</Text>
