@@ -62,7 +62,7 @@ const MapboxWebMap = ({ route }) => {
 <body>
   <div id="map"></div>
   <script>
-    mapboxgl.accessToken = ${MAPBOX_KEY}; // Thay bằng token của bạn
+    mapboxgl.accessToken = '${MAPBOX_KEY}'; // Thay bằng token của bạn
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -87,6 +87,7 @@ const MapboxWebMap = ({ route }) => {
             directionsEnabled = false;
             fetch(
           'https://api.mapbox.com/directions/v5/mapbox/driving/${currentCoords[0]},${currentCoords[1]};${endCoords[0]},${endCoords[1]}?geometries=geojson&access_token=${MAPBOX_KEY}'
+        )
           .then((response) => response.json())
           .then((data) => {
             const route = data.routes[0].geometry;

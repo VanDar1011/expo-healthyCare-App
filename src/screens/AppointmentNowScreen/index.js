@@ -205,7 +205,7 @@ const Postion = () => {
                 style={styles.button}
                 onPress={() => handleNext(item)}
               >
-                <Text style={styles.buttonText}>Đặt tiếp theo</Text>
+                <Text style={styles.buttonText}>Tiếp theo</Text>
               </TouchableOpacity>
               <Text></Text>
             </View>
