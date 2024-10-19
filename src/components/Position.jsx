@@ -19,7 +19,9 @@ import RNPickerSelect from "react-native-picker-select";
 import formatDistance from "../utils/map/formatDistance";
 import FullScreenLoading from "./FulllScreenLoading";
 import bookAppointment from "../utils/appointment/bookAppointment";
+import { useNavigation } from "@react-navigation/native";
 const Postion = () => {
+  const navaigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [places, setPlaces] = useState([]);
@@ -93,6 +95,11 @@ const Postion = () => {
     // Đóng modal
     setIsFormVisible(false);
   };
+  const handleOpenMap = () => {
+    navaigation.navigate("MapBox");
+    // Mở map
+    console.log("Open Map");
+  };
   useEffect(() => {
     (async () => {
       // Yêu cầu quyền truy cập vị trí
@@ -138,9 +145,9 @@ const Postion = () => {
     };
     functionFetchDoctorGroup();
   }, []);
-  if (loading) {
-    return <FullScreenLoading visible={loading} />;
-  }
+  // if (loading) {
+  //   return <FullScreenLoading visible={loading} />;
+  // }
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Vị trí của bạn:</Text>
@@ -168,12 +175,18 @@ const Postion = () => {
             <Text style={styles.distance}>
               Khoảng cách :{formatDistance(item.distance)} km
             </Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleNext(item)}
-            >
-              <Text style={styles.buttonText}>Đặt tiếp theo</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={handleOpenMap}>
+                <Text style={styles.buttonText}>Đường đi</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleNext(item)}
+              >
+                <Text style={styles.buttonText}>Đặt tiếp theo</Text>
+              </TouchableOpacity>
+              <Text></Text>
+            </View>
           </View>
         )}
       />
@@ -315,12 +328,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#007BFF", // Màu nền cho nút
     padding: 10,
     borderRadius: 5,
-    alignItems: "center",
+    // alignItems: "center",
   },
   buttonText: {
-    color: "#fff", // Màu chữ trong nút
+    color: "black", // Màu chữ trong nút
     fontSize: 16,
     fontWeight: "bold",
+    textAlign: "center",
   },
   containerModal: {
     position: "absolute", // Set to absolute
@@ -427,6 +441,11 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 18,
     color: "#FF0000", // Màu đỏ cho nút đóng
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 

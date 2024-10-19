@@ -18,7 +18,9 @@ router.post("/intents", async (req, res) => {
         enabled: true,
       },
       description: "Payment for order",
-      metadata: { userId: userId },
+      // metadata: {
+      //   userId: userId,
+      // },
     });
     // Return the secret key
     res.json({
