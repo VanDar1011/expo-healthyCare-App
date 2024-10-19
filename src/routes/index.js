@@ -20,12 +20,20 @@ import DoctorsGroupScreen from "../screens/DoctorsGroupScreen";
 import DoctorsGroupDetailScreen from "../screens/DoctorsGroupDetailScreen";
 import { useSelector } from "react-redux";
 import MapScreen from "../screens/MapScreen";
+import MapboxWebMap from "../components/MapboxWebMap";
 const Stack = createNativeStackNavigator();
 const Routes = () => {
   const { userId } = useSelector((state) => state.profile);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
+        {/* // test  */}
+        <Stack.Screen
+          name="MapBox"
+          component={MapboxWebMap}
+          options={{ headerShown: false }}
+        />
+        {/* //  */}
         <Stack.Screen
           name="Home"
           component={HomeVip}
