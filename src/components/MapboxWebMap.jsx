@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View, Text, Button } from "react-native";
 import * as Location from "expo-location";
+import { MAPBOX_KEY } from "../utils/config";
 const MapboxWebMap = ({ route }) => {
   // console.log("route : ", route.params);
   // console.log("startAddress : ", route.params.startAddress);
@@ -61,7 +62,7 @@ const MapboxWebMap = ({ route }) => {
 <body>
   <div id="map"></div>
   <script>
-    mapboxgl.accessToken = 'abc'; // Thay bằng token của bạn
+    mapboxgl.accessToken = ${MAPBOX_KEY}; // Thay bằng token của bạn
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -85,7 +86,7 @@ const MapboxWebMap = ({ route }) => {
             map.removeControl(directions);
             directionsEnabled = false;
             fetch(
-          'https://api.mapbox.com/directions/v5/mapbox/driving/${currentCoords[0]},${currentCoords[1]};${endCoords[0]},${endCoords[1]}?geometries=geojson&access_token=abc'
+          'https://api.mapbox.com/directions/v5/mapbox/driving/${currentCoords[0]},${currentCoords[1]};${endCoords[0]},${endCoords[1]}?geometries=geojson&access_token=${MAPBOX_KEY}'
           .then((response) => response.json())
           .then((data) => {
             const route = data.routes[0].geometry;
