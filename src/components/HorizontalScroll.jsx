@@ -2,26 +2,27 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import fetchMedicinesCategories from "../utils/medicines/fetchMedicineCategories";
 import ItemCategory from "./ItemCategory";
-import fetchMedicinesByCategory from "../utils/medicines/fectchMedicinesByCategory";
-import fetchMedicines from "../utils/medicines/fetchMedicines";
 import { scaleHeight, scaleWidth } from "../utils/config";
-const HorizontalScroll = ({ setMedicines, setIdCategory }) => {
+import searchMedicineByName from "../utils/medicines/searchMedicineByName";
+const HorizontalScroll = ({ setMedicines, setIdCategory, search }) => {
   const [categories, setCategories] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("all");
   const handlePressAll = async (name) => {
     setSelectedOption(name);
     try {
-      await fetchMedicines(setMedicines);
+      setIdCategory("");
+      await searchMedicineByName(search, "", setMedicines);
+      // await fetchMedicines(setMedicines);
     } catch (error) {
       console.error("Error fetching medicines:", error);
     }
   };
   const handlePress = async (name, id) => {
-    console.log(name, id);
     setIdCategory(id);
     setSelectedOption(name);
     try {
-      await fetchMedicinesByCategory(id, setMedicines);
+      await searchMedicineByName(search, id, setMedicines);
+      // await fetchMedicinesByCategory(id, setMedicines);
     } catch (error) {
       console.error("Error fetching medicines:", error);
     }

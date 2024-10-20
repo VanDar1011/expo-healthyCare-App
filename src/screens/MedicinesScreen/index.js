@@ -15,8 +15,7 @@ export default function MedicinesScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // const [selectedOption, setSelectedOption] = useState(null);
-  const [idCategory, setIdCategory] = useState(1);
+  const [idCategory, setIdCategory] = useState("");
 
   const updateSearch = (text) => {
     setSearch(text);
@@ -99,6 +98,7 @@ export default function MedicinesScreen() {
       <HorizontalScroll
         setMedicines={setMedicines}
         setIdCategory={setIdCategory}
+        search={search}
       />
       <ListMedicines
         medicines={medicines}
