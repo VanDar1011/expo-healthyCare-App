@@ -38,11 +38,7 @@ export default function RegisterScreen({ navigation }) {
     password: yup
       .string()
       .required("Mật khẩu trống")
-      .min(8, "Password must contain at least 8 characters")
-      .matches(
-        /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,26}$/,
-        `Must have number, uppercase, lowercase, non-alpha numeric number`
-      ),
+      .min(8, "Password must contain at least 8 characters"),
     confim_password: yup
       .string()
       .required("Nhập lại mật khẩu trống")
