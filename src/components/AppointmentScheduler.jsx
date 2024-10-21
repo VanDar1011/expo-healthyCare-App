@@ -14,9 +14,13 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { scaleWidth, scaleHeight } from "../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import bookAppointment from "../utils/appointment/bookAppointment";
+import { useNavigation } from "@react-navigation/native";
+
 const AppointmentScheduler = ({ doctorId }) => {
   // console.log(doctorId);
   // const { doctorId, userId, startTime, endTime } = req.body;
+  const navigation = useNavigation();
+
   const { userId, email, name } = useSelector((state) => state.profile);
   // console.log("userId, email, name", userId, email, name);
   const [selectedDate, setSelectedDate] = useState("");
@@ -108,7 +112,13 @@ const AppointmentScheduler = ({ doctorId }) => {
         phone: null,
         specialist_id: null,
       });
-      Alert.alert("Đặt hàng", data.message);
+      Alert.alert("Đặt hàng", data.message, [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("Home"),
+        },
+      ]);
+      navigator;
     } catch (error) {
       Alert.alert("Lỗi", error.message);
     }
