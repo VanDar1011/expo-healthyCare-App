@@ -7,6 +7,9 @@ import { setProfileRedux } from "../../store/slice/profileSlice";
 import Sidebar from "../../components/Sidebar";
 import ListAppoinemt from "../../components/ListAppoinemt";
 import { useDispatch, useSelector } from "react-redux";
+import SaleBackground from "../../components/SaleBackground";
+import countOrderById from "../../utils/order/countOrderById";
+import { setCount } from "../../store/slice/countOrderSlice";
 export default function HomeVip({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
@@ -24,6 +27,8 @@ export default function HomeVip({ navigation }) {
   const fetchProfile = async () => {
     try {
       const { userId, name, email } = await getProfile();
+      const count = await countOrderById(userId, setCount);
+      dispatch(setCount(count));
       dispatch(setProfileRedux({ userId, name, email }));
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -162,6 +167,7 @@ export default function HomeVip({ navigation }) {
         </View>
         <ListAppoinemt profile={profile} />
       </View>
+      <SaleBackground />
     </View>
   );
 }

@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 10,
   },
- 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center", // Căn giữa theo chiều dọc
+    alignItems: "center", // Căn giữa theo chiều ngang
+    backgroundColor: "#fff", // Màu nền trắng
+  },
 });
 export default styles;

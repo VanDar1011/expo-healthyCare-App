@@ -8,7 +8,9 @@ import {
   Button,
   TextInput,
   Alert,
+  ActivityIndicator,
 } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import fetchNearPlace from "../../utils/map/fetchNearPlace";
 // import { Picker } from "@react-native-picker/picker";
@@ -20,6 +22,7 @@ import formatDistance from "../../utils/map/formatDistance";
 // import FullScreenLoading from "./FulllScreenLoading";
 import bookAppointment from "../../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
+import VoucherSelector from "../../components/VoucherSelector";
 const Postion = () => {
   const navaigation = useNavigation();
   const [location, setLocation] = useState(null);
@@ -31,6 +34,7 @@ const Postion = () => {
   const [departments, setDoctorGroups] = useState([]);
   const { userId, email, name } = useSelector((state) => state.profile);
   const [loading, isLoading] = useState(true);
+  const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [formData, setFormData] = useState({
     name: name,
     email: email,
@@ -83,8 +87,9 @@ const Postion = () => {
       phone: formData.phone,
       branch_id: formData.branch,
       specialist_id: formData.departmentId,
+      voucher_code: selectedVoucher?.voucher_code,
     });
-
+    setSelectedVoucher(null);
     console.log(data);
     Alert.alert("Đặt hàng", data.message);
     setIsFormVisible(false);
@@ -164,9 +169,16 @@ const Postion = () => {
     };
     functionFetchDoctorGroup();
   }, []);
-  // if (loading) {
-  //   return <FullScreenLoading visible={loading} />;
-  // }
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>
+          Đang xử lí vị trí, vui lòng chờ...
+        </Text>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Vị trí của bạn:</Text>
@@ -293,6 +305,14 @@ const Postion = () => {
                 onChange={onChangeTime}
                 style={styles.datePickerModal}
               />
+            </View>
+            <View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <VoucherSelector
+                  selectedVoucher={selectedVoucher}
+                  setSelectedVoucher={setSelectedVoucher}
+                />
+              </View>
             </View>
             {/* Nút Đặt Lịch */}
             <Button title="Đặt ngay" onPress={handleSubmit} />
@@ -468,6 +488,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center", // Căn giữa theo chiều dọc
+    alignItems: "center", // Căn giữa theo chiều ngang
+    backgroundColor: "#fff", // Màu nền trắng
+  },
+  loadingText: {
+    fontSize: 18, // Kích thước chữ lớn
+    color: "#333", // Màu chữ đậm
+    marginBottom: 10, // Khoảng cách dưới cho ActivityIndicator
   },
 });
 

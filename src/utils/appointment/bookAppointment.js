@@ -7,6 +7,7 @@ const bookAppointment = async ({
   branch_id,
   phone,
   specialist_id,
+  voucher_code = null,
 }) => {
   console.log(
     doctorId,
@@ -15,7 +16,8 @@ const bookAppointment = async ({
     endTime,
     branch_id,
     specialist_id,
-    phone
+    phone,
+    voucher_code
   );
   try {
     const res = await fetch(`${API_APP}/v1/api/book-appointments`, {
@@ -31,6 +33,7 @@ const bookAppointment = async ({
         branch_id,
         phone,
         specialist_id,
+        voucher_code,
       }),
     });
     console.log("res : ", res);

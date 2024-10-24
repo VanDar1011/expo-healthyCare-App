@@ -8,6 +8,9 @@ import buyMedicines from "../../utils/medicines/buyMedinces";
 import BuyMedicineModel from "../../components/Modal/BuyMedicineModel";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { increaseCount } from "../../store/slice/countOrderSlice";
+import checkExistingProduct from "../../utils/order/checkExistingProduct";
 export default function DetailsMedicineScreen() {
   // console.log("Router", route);
   const route = useRoute();
@@ -17,7 +20,7 @@ export default function DetailsMedicineScreen() {
   const [medicine, setMedicine] = useState(item);
   const [modalVisible, setModalVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
+  const dispatch = useDispatch();
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -49,7 +52,15 @@ export default function DetailsMedicineScreen() {
       old_price: medicine.old_price,
       new_price: medicine.new_price,
     };
+    const exist = await checkExistingProduct(userId, medicine.id);
+    // console.log("Value of exist is: ", exist);
     await buyMedicines(data);
+    if (exist === false) {
+      console.log("The product doesn't exist in the cart");
+      dispatch(increaseCount());
+    } else {
+      console.log("The product exist in the cart");
+    }
     setQuantity(1);
     setModalVisible(false);
     navigation.navigate("Medicines");

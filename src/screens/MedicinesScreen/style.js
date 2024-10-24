@@ -68,5 +68,21 @@ const styles = StyleSheet.create({
     width: 15 * scaleWidth,
     height: 15 * scaleHeight,
   },
+  badge: {
+    position: "absolute",
+    top: -5, // Điều chỉnh vị trí của badge
+    right: -5,
+    backgroundColor: "red",
+    borderRadius: 10, // Làm tròn cho badge
+    width: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  badgeText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
 });
 export default styles;
