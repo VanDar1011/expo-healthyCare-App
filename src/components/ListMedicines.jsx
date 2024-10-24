@@ -9,8 +9,13 @@ import {
 } from "react-native";
 import ItemMedicines from "./ItemMedicines";
 import { scaleHeight, scaleWidth } from "../utils/config";
-export default function ListMedicines({ navigation, medicines, loading }) {
-  console.log("loading", loading);
+export default function ListMedicines({
+  navigation,
+  medicines,
+  loading,
+  setCount,
+}) {
+  // console.log("loading", loading);
   //   console.log(medicines);
   return (
     <View style={styles.view_holder}>

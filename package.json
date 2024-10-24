@@ -24,10 +24,12 @@
     "dotenv": "^16.4.5",
     "eas-cli": "^12.5.0",
     "expo": "^51.0.34",
+    "expo-device": "^6.0.2",
     "expo-env": "^1.1.1",
     "expo-linear-gradient": "^13.0.2",
     "expo-linking": "^6.3.1",
     "expo-location": "^17.0.1",
+    "expo-notifications": "^0.28.18",
     "expo-status-bar": "~1.12.1",
     "express": "^4.21.0",
     "lodash.debounce": "^4.0.8",
@@ -47,10 +49,10 @@
     "react-native-ratings": "^8.1.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.10",
+    "react-native-webview": "13.8.6",
     "react-redux": "^9.1.2",
     "stripe": "^16.12.0",
-    "yup": "^1.4.0",
-    "react-native-webview": "13.8.6"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

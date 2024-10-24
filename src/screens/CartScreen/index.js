@@ -13,12 +13,15 @@ import createPaymentIntent from "../../utils/payment/createPaymentIntent";
 import { useStripe } from "@stripe/stripe-react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { descreaseCount } from "../../store/slice/countOrderSlice";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { userId, email, name } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const increaseQuantity = async (id) => {
     const quantity = items.find((item) => item.id === id).quantity;
@@ -46,6 +49,7 @@ const CartScreen = () => {
 
   const deleteItem = async (id) => {
     await deleteOrderById(id);
+    dispatch(descreaseCount());
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 

@@ -128,6 +128,7 @@ const FormAppointment = () => {
             style={styles.datePicker} // Áp dụng style tùy chỉnh
           />
         </View>
+
         {/* Nút Đặt Lịch */}
         <Button title="Tìm kiếm" onPress={handleSubmit} />
       </View>

@@ -15,6 +15,7 @@ import { scaleWidth, scaleHeight } from "../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import bookAppointment from "../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
+import VoucherSelector from "./VoucherSelector";
 
 const AppointmentScheduler = ({ doctorId }) => {
   // console.log(doctorId);
@@ -24,6 +25,7 @@ const AppointmentScheduler = ({ doctorId }) => {
   const { userId, email, name } = useSelector((state) => state.profile);
   // console.log("userId, email, name", userId, email, name);
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [isStartPickerVisible, setStartPickerVisibility] = useState(false);
@@ -111,15 +113,23 @@ const AppointmentScheduler = ({ doctorId }) => {
         branch_id,
         phone: null,
         specialist_id: null,
+        voucher_code: selectedVoucher?.voucher_code,
       });
-      Alert.alert("Đặt hàng", data.message, [
+      // Alert.alert("Đặt hàng", data.message, [
+      //   {
+      //     text: "OK",
+      //     onPress: () => navigation.navigate("Home"),
+      //   },
+      // ]);
+      Alert.alert("Đặt hàng", "Taọ lịch hẹn thành công", [
         {
           text: "OK",
           onPress: () => navigation.navigate("Home"),
         },
       ]);
-      navigator;
+      console.log("VoucherSeletec", selectedVoucher);
     } catch (error) {
+      console.log("Lỗi : ", error.message);
       Alert.alert("Lỗi", error.message);
     }
   };
@@ -167,7 +177,12 @@ const AppointmentScheduler = ({ doctorId }) => {
           />
         </View>
       </View>
-      <View style={styles.workingHoursContainer}>
+      <VoucherSelector
+        setSelectedVoucher={setSelectedVoucher}
+        selectedVoucher={selectedVoucher}
+      />
+      {/* comment here */}
+      {/* <View style={styles.workingHoursContainer}>
         <View style={styles.header}>
           <Icon name="time" size={30} color="#000" />
           <Text style={styles.title}>Giờ làm việc</Text>
@@ -182,8 +197,7 @@ const AppointmentScheduler = ({ doctorId }) => {
             <Text>09:00 - 12:30</Text>
           </View>
         </View>
-      </View>
-
+      </View> */}
       <Pressable style={styles.button} onPress={handleConfirmDateAndTime}>
         <Text style={styles.buttonText}>Đặt lịch</Text>
       </Pressable>
@@ -208,16 +222,16 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  workingHoursContainer: {
-    padding: 10,
-    backgroundColor: "#ffffff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
+  // workingHoursContainer: {
+  //   padding: 10,
+  //   backgroundColor: "#ffffff",
+  //   borderRadius: 8,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 4,
+  //   elevation: 2,
+  // },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -225,23 +239,23 @@ const styles = StyleSheet.create({
     columnGap: 10,
     justifyContent: "center",
   },
-  timeContainer: {
-    padding: 15,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  timeRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
+  // timeContainer: {
+  //   padding: 15,
+  //   backgroundColor: "#f0f0f0",
+  //   borderRadius: 8,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 4,
+  //   elevation: 2,
+  // },
+  // timeRow: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   paddingVertical: 10,
+  //   borderBottomWidth: 1,
+  //   borderBottomColor: "#ccc",
+  // },
   button: {
     backgroundColor: "#007BFF", // Màu nền
     paddingVertical: 12, // Khoảng cách dọc
