@@ -8,6 +8,12 @@ const AppointmentItem = ({ appointment }) => {
     undefined,
     options
   );
+  // console.log(formattedStartDate);
+  const [day, month, year] = formattedStartDate.split("/").map(Number);
+  const selectedDate = new Date(year, month - 1, day); // Tháng bắt đầu từ 0
+
+  const currentDate = new Date(); // Lấy ngày hiện tại
+  const isExpired = selectedDate < currentDate; //
   // Định dạng thời gian (có thể sử dụng thư viện moment.js để dễ hơn)
   const formattedStartTime = new Date(startTime).toLocaleTimeString();
   const formattedEndTime = new Date(endTime).toLocaleTimeString();
@@ -31,6 +37,13 @@ const AppointmentItem = ({ appointment }) => {
           {formattedStartTime} - {formattedEndTime}
         </Text>
         <Text style={styles.dateText}>{formattedStartDate}</Text>
+        <View style={styles.statusContainer}>
+          {isExpired ? (
+            <Text style={styles.expiredText}>Hết hạn</Text>
+          ) : (
+            <Text style={styles.upcomingText}>Sắp tới </Text>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -82,6 +95,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#333",
     fontWeight: "bold",
+  },
+  expiredText: {
+    color: "red", // Màu sắc cho thông báo hết hạn
+    fontWeight: "bold", // Đậm hơn
+  },
+  upcomingText: {
+    fontSize: 16,
+    color: "green", // Màu xanh cho văn bản "Sắp tới"
+    fontWeight: "bold", // In đậm
+  },
+  statusContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
 

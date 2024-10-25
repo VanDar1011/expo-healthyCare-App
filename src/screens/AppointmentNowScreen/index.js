@@ -23,6 +23,8 @@ import formatDistance from "../../utils/map/formatDistance";
 import bookAppointment from "../../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
 import VoucherSelector from "../../components/VoucherSelector";
+import FullScreenLoading from "../../components/FulllScreenLoading";
+import isDuringWorkingHours from "../../utils/appointment/DuringHouse";
 const Postion = () => {
   const navaigation = useNavigation();
   const [location, setLocation] = useState(null);
@@ -34,6 +36,7 @@ const Postion = () => {
   const [departments, setDoctorGroups] = useState([]);
   const { userId, email, name } = useSelector((state) => state.profile);
   const [loading, isLoading] = useState(true);
+  const [loadingAppointment, setLoadingAppointment] = useState(false);
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [formData, setFormData] = useState({
     name: name,
@@ -59,41 +62,62 @@ const Postion = () => {
   };
 
   const handleSubmit = async () => {
-    // Logic xử lý đặt lịch ở đây (gửi dữ liệu hoặc xác nhận)
-    // console.log(formData);
-    const dateString = formData.date.toISOString().split("T")[0];
-    // console.log(dateString);
-    const dateParts = dateString.split("-"); // Tách thành mảng ngày tháng năm
-    const year = parseInt(dateParts[0], 10);
-    const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
-    const day = parseInt(dateParts[2], 10);
-    const startDateTime = new Date(
-      year,
-      month,
-      day,
-      formData.time.getHours(),
-      formData.time.getMinutes()
-    );
-    console.log("Start Time", startDateTime);
-    const endDateTime = startDateTime.setHours(
-      startDateTime.getHours() + 2,
-      startDateTime.getMinutes() + 59
-    );
-    // Thiết lập thời gian bắt đầu
-    const data = await bookAppointment({
-      userId,
-      email,
-      startTime: startDateTime,
-      endTime: endDateTime,
-      phone: formData.phone,
-      branch_id: formData.branch,
-      specialist_id: formData.departmentId,
-      voucher_code: selectedVoucher?.voucher_code,
-    });
-    setSelectedVoucher(null);
-    console.log(data);
-    Alert.alert("Đặt hàng", data.message);
-    setIsFormVisible(false);
+    try {
+      // Logic xử lý đặt lịch ở đây (gửi dữ liệu hoặc xác nhận)
+      // console.log(formData);
+      const dateString = formData.date.toISOString().split("T")[0];
+      // console.log(dateString);
+      const dateParts = dateString.split("-"); // Tách thành mảng ngày tháng năm
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
+      const day = parseInt(dateParts[2], 10);
+      const startDateTime = new Date(
+        year,
+        month,
+        day,
+        formData.time.getHours(),
+        formData.time.getMinutes()
+      );
+      if (!isDuringWorkingHours(startDateTime)) {
+        Alert.alert(
+          "Lỗi",
+          "Giờ làm việc \nBuổi sáng: 8:00 - 12:00\nBuổi chiều: 13:00 - 17:00\nNgày làm việc: Thứ Hai đến Thứ Sáu"
+        );
+        return;
+      }
+      setLoadingAppointment(true);
+      console.log("Start Time", startDateTime);
+      const endDateTime = startDateTime.setHours(
+        startDateTime.getHours() + 2,
+        startDateTime.getMinutes() + 59
+      );
+      const endDate = new Date(endDateTime);
+
+      // Chuyển đổi đối tượng Date sang định dạng ISO
+      const isoEndTime = endDate.toISOString();
+      console.log("End Time", isoEndTime);
+
+      // Thiết lập thời gian bắt đầu
+      const data = await bookAppointment({
+        userId,
+        email,
+        startTime: startDateTime,
+        endTime: isoEndTime,
+        phone: formData.phone,
+        branch_id: formData.branch,
+        specialist_id: formData.departmentId,
+        voucher_code: selectedVoucher?.voucher_code,
+      });
+      setSelectedVoucher(null);
+      console.log(data);
+      Alert.alert("Tạo lịch hẹn", "Tạo lịch hẹn thành công");
+      setIsFormVisible(false);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Lỗi", "Đặt lịch thất bại");
+    } finally {
+      setLoadingAppointment(false);
+    }
   };
 
   const handleNext = (item) => {
@@ -180,6 +204,13 @@ const Postion = () => {
       </View>
     );
   }
+  if (loadingAppointment)
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Đang tạo lịch hẹn</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Vị trí của bạn:</Text>
