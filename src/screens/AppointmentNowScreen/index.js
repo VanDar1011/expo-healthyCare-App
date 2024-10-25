@@ -82,6 +82,7 @@ const Postion = () => {
     // Thiết lập thời gian bắt đầu
     const data = await bookAppointment({
       userId,
+      email,
       startTime: startDateTime,
       endTime: endDateTime,
       phone: formData.phone,

@@ -2,6 +2,7 @@ import API_APP from "../config";
 const bookAppointment = async ({
   doctorId,
   userId,
+  email,
   startTime,
   endTime,
   branch_id,
@@ -9,16 +10,6 @@ const bookAppointment = async ({
   specialist_id,
   voucher_code = null,
 }) => {
-  console.log(
-    doctorId,
-    userId,
-    startTime,
-    endTime,
-    branch_id,
-    specialist_id,
-    phone,
-    voucher_code
-  );
   try {
     const res = await fetch(`${API_APP}/v1/api/book-appointments`, {
       method: "POST",
@@ -28,6 +19,7 @@ const bookAppointment = async ({
       body: JSON.stringify({
         doctorId,
         userId,
+        email,
         startTime,
         endTime,
         branch_id,

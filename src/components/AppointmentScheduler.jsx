@@ -108,6 +108,7 @@ const AppointmentScheduler = ({ doctorId }) => {
       const data = await bookAppointment({
         doctorId,
         userId,
+        email,
         startTime: startDateTime,
         endTime: endDateTime,
         branch_id,
@@ -115,12 +116,6 @@ const AppointmentScheduler = ({ doctorId }) => {
         specialist_id: null,
         voucher_code: selectedVoucher?.voucher_code,
       });
-      // Alert.alert("Đặt hàng", data.message, [
-      //   {
-      //     text: "OK",
-      //     onPress: () => navigation.navigate("Home"),
-      //   },
-      // ]);
       Alert.alert("Đặt hàng", "Taọ lịch hẹn thành công", [
         {
           text: "OK",
