@@ -38,37 +38,39 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Voucher của bạn</Text>
 
-      <View style={styles.selectedVoucherContainer}>
-        {/* Hiển thị biểu tượng để mở Modal */}
-        <TouchableOpacity
-          style={styles.iconContainer}
-          onPress={() => setModalVisible(true)} // Mở Modal khi nhấn vào icon
-        >
-          <FontAwesome
-            name="ticket"
-            size={24}
-            color={selectedVoucher ? "#00838f" : "#666"}
-          />
-        </TouchableOpacity>
-
-        {/* Hiển thị mã voucher đã chọn */}
-        <Text style={styles.selectedVoucherText}>
-          {selectedVoucher
-            ? selectedVoucher.voucher_code
-            : "Chưa có voucher được chọn"}
-        </Text>
-        {selectedVoucher && (
-          <TouchableOpacity
-            style={styles.clearButton}
-            onPress={handleClearVoucher} // Xóa voucher khi nhấn vào nút
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.selectedVoucherContainer}>
+          {/* Hiển thị biểu tượng để mở Modal */}
+          <View
+            style={styles.iconContainer}
+            // Mở Modal khi nhấn vào icon
           >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text> Xóa </Text>
-              <FontAwesome name="times-circle" size={24} color="#ff0000" />
-            </View>
-          </TouchableOpacity>
-        )}
-      </View>
+            <FontAwesome
+              name="ticket"
+              size={24}
+              color={selectedVoucher ? "#00838f" : "#666"}
+            />
+          </View>
+
+          {/* Hiển thị mã voucher đã chọn */}
+          <Text style={styles.selectedVoucherText}>
+            {selectedVoucher
+              ? selectedVoucher.voucher_code
+              : "Chưa có voucher được chọn"}
+          </Text>
+          {selectedVoucher && (
+            <TouchableOpacity
+              style={styles.clearButton}
+              onPress={handleClearVoucher} // Xóa voucher khi nhấn vào nút
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text> Xóa </Text>
+                <FontAwesome name="times-circle" size={24} color="#ff0000" />
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
+      </TouchableOpacity>
 
       {/* Modal để hiển thị danh sách voucher */}
       <Modal
