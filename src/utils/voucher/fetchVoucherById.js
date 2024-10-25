@@ -1,8 +1,8 @@
 import API_APP from "../config";
 const fetchVouchers = async (userId, setVouchers) => {
   try {
-    console.log("userId is", userId);
-    console.log("setVouchers is", setVouchers);
+    // console.log("userId is", userId);
+    // console.log("setVouchers is", setVouchers);
     const response = await fetch(`${API_APP}/v1/api/voucher?userId=${userId}`, {
       method: "GET",
       headers: {

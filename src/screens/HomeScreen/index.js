@@ -12,7 +12,7 @@ import countOrderById from "../../utils/order/countOrderById";
 import { setCount } from "../../store/slice/countOrderSlice";
 export default function HomeVip({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
-
+  const { count } = useSelector((state) => state.countOrder);
   // const [profile, setProfile] = useState(null);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -127,6 +127,9 @@ export default function HomeVip({ navigation }) {
                 source={require("../../assets/icon/cart.png")}
                 style={styles.img_item_service}
               />
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{count}</Text>
+              </View>
               {/* <Icon name="shopping-cart" size={30} color="#199" /> */}
             </Pressable>
             <Text style={styles.name_item_service}>Giỏ hàng</Text>
