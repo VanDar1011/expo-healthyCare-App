@@ -10,6 +10,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import fetchVouchers from "../utils/voucher/fetchVoucherById";
+import formatVoucherCode from "../utils/voucher/formatVoucherCode";
 const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
   // Danh sách mã voucher mẫu
   //   const vouchers = [
@@ -55,7 +56,7 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
           {/* Hiển thị mã voucher đã chọn */}
           <Text style={styles.selectedVoucherText}>
             {selectedVoucher
-              ? selectedVoucher.voucher_code
+              ? formatVoucherCode(selectedVoucher.voucher_code)
               : "Chưa có voucher được chọn"}
           </Text>
           {selectedVoucher && (
@@ -95,7 +96,9 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
                   style={styles.voucherItem}
                   onPress={() => handleSelectVoucher(item)} // Chọn voucher và đóng Modal
                 >
-                  <Text style={styles.voucherCode}>{item.voucher_code}</Text>
+                  <Text style={styles.voucherCode}>
+                    {formatVoucherCode(item.voucher_code)}
+                  </Text>
                   <Text style={styles.voucherDescription}>{item.name}</Text>
                 </TouchableOpacity>
               )}

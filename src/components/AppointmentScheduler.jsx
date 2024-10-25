@@ -16,7 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import bookAppointment from "../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
 import VoucherSelector from "./VoucherSelector";
-
+import FullScreenLoading from "./FulllScreenLoading";
+import isDuringWorkingHours from "../utils/appointment/DuringHouse";
+import AlertService from "../utils/AlterService";
 const AppointmentScheduler = ({ doctorId }) => {
   // console.log(doctorId);
   // const { doctorId, userId, startTime, endTime } = req.body;
@@ -30,6 +32,7 @@ const AppointmentScheduler = ({ doctorId }) => {
   const [endTime, setEndTime] = useState(new Date());
   const [isStartPickerVisible, setStartPickerVisibility] = useState(false);
   const [isEndPickerVisible, setEndPickerVisibility] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const onDayPress = (day) => {
     const currentDate = new Date(); // Ngày hiện tại
     currentDate.setHours(0, 0, 0, 0);
@@ -37,10 +40,13 @@ const AppointmentScheduler = ({ doctorId }) => {
     selectedDay.setHours(0, 0, 0, 0); // Ngày được chọn
     // Kiểm tra nếu ngày chọn nhỏ hơn ngày hiện tại
     if (selectedDay < currentDate) {
-      Alert.alert("Lỗi", "Ngày không thể nhỏ hơn ngày hiện tại!");
+      // Alert.alert("Thất bại", "Ngày không thể nhỏ hơn ngày hiện tại!");
+      AlertService.showErrorAlert("Ngày không thể nhỏ hơn ngày hiện tại!");
+      return;
     } else {
       setSelectedDate(day.dateString);
-      Alert.alert("Ngày đã chọn", day.dateString);
+      AlertService.showAnyAlert("Ngày đã chọn", day.dateString);
+      // Alert.alert("Ngày đã chọn", day.dateString);
     }
   };
   const showStartPicker = () => {
@@ -95,7 +101,14 @@ const AppointmentScheduler = ({ doctorId }) => {
         startTime.getHours(),
         startTime.getMinutes()
       );
-
+      if (!isDuringWorkingHours(startDateTime)) {
+        AlertService.showErrorAlertByType("workingHours");
+        // Alert.alert(
+        //   "Lỗi",
+        //   "Giờ làm việc \nBuổi sáng: 8:00 - 12:00\nBuổi chiều: 13:00 - 17:00\nNgày làm việc: Thứ Hai đến Thứ Sáu"
+        // );
+        return;
+      }
       // Thiết lập thời gian kết thúc
       const endDateTime = new Date(
         year,
@@ -105,6 +118,8 @@ const AppointmentScheduler = ({ doctorId }) => {
         endTime.getMinutes()
       );
       const branch_id = null;
+
+      setIsLoading(true);
       const data = await bookAppointment({
         doctorId,
         userId,
@@ -122,12 +137,21 @@ const AppointmentScheduler = ({ doctorId }) => {
           onPress: () => navigation.navigate("Home"),
         },
       ]);
+      // AlertService.showConfirmationAlert(
+      //   "Đặt hàng",
+      // )
       console.log("VoucherSeletec", selectedVoucher);
     } catch (error) {
       console.log("Lỗi : ", error.message);
-      Alert.alert("Lỗi", error.message);
+      AlertService.showErrorAlert("Đặt lịch hẹn thất bại");
+      // Alert.alert("Lỗi", error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
+  if (isLoading) {
+    return <FullScreenLoading visible={isLoading} />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
