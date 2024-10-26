@@ -33,16 +33,19 @@ export default function RegisterScreen({ navigation }) {
     setIsSecureConfirm(!isSecureConfirm);
   };
   const schema = yup.object().shape({
-    user_name: yup.string().required("Tên trống"),
-    email: yup.string().required("Email trống").email("Invalid email"),
+    user_name: yup.string().required("Trường này không được trống"),
+    email: yup
+      .string()
+      .required("Trường này không được trống")
+      .email("Email không hợp lệ"),
     password: yup
       .string()
-      .required("Mật khẩu trống")
-      .min(8, "Password must contain at least 8 characters"),
+      .required("Trường này không được trống")
+      .min(8, "Mật khẩu ít nhất 8 kí tự"),
     confim_password: yup
       .string()
-      .required("Nhập lại mật khẩu trống")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .required("Trường này không được trống")
+      .oneOf([yup.ref("password"), null], "Mật khẩu không khớp"),
   });
   const {
     control,

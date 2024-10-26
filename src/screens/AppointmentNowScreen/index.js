@@ -24,7 +24,7 @@ import bookAppointment from "../../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
 import VoucherSelector from "../../components/VoucherSelector";
 import FullScreenLoading from "../../components/FulllScreenLoading";
-import isDuringWorkingHours from "../../utils/appointment/DuringHouse";
+import isDuringWorkingHours from "../../utils/appointment/duringHouse";
 const Postion = () => {
   const navaigation = useNavigation();
   const [location, setLocation] = useState(null);

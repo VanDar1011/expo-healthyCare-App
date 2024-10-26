@@ -17,7 +17,7 @@ import bookAppointment from "../utils/appointment/bookAppointment";
 import { useNavigation } from "@react-navigation/native";
 import VoucherSelector from "./VoucherSelector";
 import FullScreenLoading from "./FulllScreenLoading";
-import isDuringWorkingHours from "../utils/appointment/DuringHouse";
+import isDuringWorkingHours from "../utils/appointment/duringHouse";
 import AlertService from "../utils/AlterService";
 const AppointmentScheduler = ({ doctorId }) => {
   // console.log(doctorId);
