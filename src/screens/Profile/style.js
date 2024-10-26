@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     marginBottom: 40 * scaleHeight,
   },
   infoContainer: {
+    width: "100%",
     alignItems: "center",
   },
   userName: {
@@ -30,19 +31,32 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 10 * scaleHeight,
   },
+  cancelText: {
+    fontSize: 16 * scaleWidth,
+    color: "red",
+    fontWeight: "bold",
+    marginVertical: 10 * scaleHeight,
+    textAlign: "center",
+  },
   editText: {
     marginVertical: 14 * scaleHeight,
     fontSize: 16 * scaleWidth,
     color: "#3498db",
   },
+  container_input: {
+    marginVertical: 20 * scaleHeight,
+    width: "80%",
+    justifyContent: "center",
+  },
   input: {
-    color: "black",
-    fontSize: 16 * scaleWidth,
-    borderColor: "#ccc",
-    borderWidth: 2,
+    height: 50 * scaleHeight,
+    margin: 5,
+    paddingHorizontal: 25 * scaleWidth,
+    borderWidth: 1,
     borderRadius: 10 * scaleWidth,
-    paddingHorizontal: 20 * scaleWidth,
-    paddingVertical: 10 * scaleHeight,
+    borderColor: "#000000",
+    fontSize: 16 * scaleWidth,
+    fontWeight: "400",
   },
   logoutButton: {
     backgroundColor: "#2ecc71",
@@ -53,6 +67,46 @@ const styles = StyleSheet.create({
   logoutText: {
     color: "#fff",
     fontSize: 15 * scaleWidth,
+    fontWeight: "bold",
+  },
+  updateButton: {
+    width: "60%",
+    backgroundColor: "#2ecc71",
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+
+  disabledButton: {
+    backgroundColor: "#d3e8e2",
+    borderColor: "#b2d3b2",
+    borderWidth: 1,
+    opacity: 0.8,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 0,
+    shadowColor: "transparent",
+  },
+
+  updateText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  disabledText: {
+    color: "#7f7f7f",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

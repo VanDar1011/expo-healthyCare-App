@@ -13,6 +13,9 @@ export const profileSlice = createSlice({
       state.email = action.payload.email;
       state.name = action.payload.name;
     },
+    setNameRedux: (state, action) => {
+      state.name = action.payload.name;
+    },
     clearProfileRedux: (state) => {
       state.userId = null;
       state.email = null;
@@ -21,7 +24,8 @@ export const profileSlice = createSlice({
   },
 });
 
-export const { setProfileRedux, clearProfileRedux } = profileSlice.actions;
+export const { setProfileRedux, clearProfileRedux, setNameRedux } =
+  profileSlice.actions;
 export default profileSlice.reducer;
 // code khác
 // import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";

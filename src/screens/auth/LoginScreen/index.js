@@ -37,11 +37,14 @@ export default function LoginScreen({ navigation }) {
     setIsSecure(!isSecure);
   };
   const schema = yup.object().shape({
-    email: yup.string().required("Email is required").email("Invalid email"),
+    email: yup
+      .string()
+      .required("Trường này không được trống")
+      .email("Email không hợp lệ"),
     password: yup
       .string()
-      .required("Password is required")
-      .min(8, "Password must contain at least 8 characters"),
+      .required("Password không được để trống")
+      .min(8, "Mật khẩu phải ít nhất 8 kí tự"),
   });
   const {
     control,
