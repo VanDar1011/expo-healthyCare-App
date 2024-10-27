@@ -2,34 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import AppointmentItem from "./ItemAppointment";
 import fetchAppointment from "../utils/appointment/fetchAppointment";
-import { getProfile } from "../utils/user/profileUser";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { scaleHeight, scaleWidth } from "../utils/config";
 export default function ListAppoinemt({ profile }) {
-  // console.log("profile user", profile);
-  // const [profile, setProfile] = useState(null);
-  // const [appointments, setAppoinments] = useState([]);
-  // const fetchDataAppointment = useCallback(async () => {
-  //   try {
-  //     const {userId, name} = await getProfile();
-  //     setProfile({userId, name});
-  //     console.log('profile at home', {userId, name});
-  //     if (!userId) return;
-  //     fetchAppointment({
-  //       userId: profile?.userId,
-  //       limit: 2,
-  //       status: 'done',
-  //       setAppoinments,
-  //     });
-  //   } catch (error) {
-  //     console.error('Error fetching profile:', error);
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   fetchDataAppointment();
-  // }, [fetchDataAppointment]);
-  //
-  // const [profile, setProfile] = useState(null);
   const [appointments, setAppoinments] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
@@ -74,19 +50,19 @@ export default function ListAppoinemt({ profile }) {
 const styles = StyleSheet.create({
   textBook: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 16 * scaleWidth,
     fontWeight: "bold",
     color: "#ffffff",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingVertical: 15 * scaleHeight,
+    paddingHorizontal: 10 * scaleWidth,
     letterSpacing: 1.2,
   },
   btnBookNow: {
     backgroundColor: "#2ecc71",
-    borderRadius: 8,
+    borderRadius: 8 * scaleWidth,
   },
   container: {
-    padding: 4,
+    padding: 4 * scaleWidth,
     flex: 1,
   },
   text_center: {
@@ -96,9 +72,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 20 * scaleWidth,
     backgroundColor: "#f8f8f8", // Light background color
-    borderRadius: 10,
+    borderRadius: 10 * scaleWidth,
     elevation: 3, // Shadow effect on Android
     shadowColor: "#000", // Shadow color for iOS
     shadowOffset: {
@@ -110,11 +86,11 @@ const styles = StyleSheet.create({
   },
   text_center: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 18 * scaleWidth,
     fontWeight: "bold",
     color: "#2ecc71",
-    paddingVertical: 15,
+    paddingVertical: 15 * scaleHeight,
     letterSpacing: 1.2,
-    lineHeight: 24,
+    lineHeight: 24 * scaleWidth,
   },
 });

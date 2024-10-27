@@ -1,7 +1,7 @@
-import React from 'react';
-import {Modal, View, Text, Animated, Easing, Pressable} from 'react-native';
-import styles from './style';
-import VerticalQuantityPicker from '../VerticalQuantityPicker';
+import React from "react";
+import { Modal, View, Text, Animated, Easing, Pressable } from "react-native";
+import styles from "./style";
+import VerticalQuantityPicker from "../VerticalQuantityPicker";
 export default function BuyMedicineModel({
   modalVisible,
   item,
@@ -12,8 +12,6 @@ export default function BuyMedicineModel({
   handleBuyMedicine,
 }) {
   const [modalY] = React.useState(new Animated.Value(500));
-
-  // const handle
   React.useEffect(() => {
     if (modalVisible) {
       Animated.timing(modalY, {
@@ -36,10 +34,15 @@ export default function BuyMedicineModel({
       visible={modalVisible}
       transparent
       animationType="none"
-      onRequestClose={handleCloseModal}>
+      onRequestClose={handleCloseModal}
+    >
       <View style={styles.modalBackdrop}>
         <Animated.View
-          style={[styles.modalContainer, {transform: [{translateY: modalY}]}]}>
+          style={[
+            styles.modalContainer,
+            { transform: [{ translateY: modalY }] },
+          ]}
+        >
           <Text style={styles.modalTitle}>Số sản phẩm muốn mua</Text>
           <View style={styles.container_quantity}>
             <VerticalQuantityPicker
@@ -51,12 +54,14 @@ export default function BuyMedicineModel({
           <View style={styles.container_btn}>
             <Pressable
               style={styles.buyMedicineButton}
-              onPress={handleBuyMedicine}>
+              onPress={handleBuyMedicine}
+            >
               <Text style={styles.modalButtonText}>Mua</Text>
             </Pressable>
             <Pressable
               style={styles.closeModalButton}
-              onPress={handleCloseModal}>
+              onPress={handleCloseModal}
+            >
               <Text style={styles.modalButtonText}>Đóng</Text>
             </Pressable>
           </View>

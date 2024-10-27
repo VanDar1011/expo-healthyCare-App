@@ -95,12 +95,6 @@ const Routes = () => {
           component={ChangePasswordScreen}
           options={{ headerShown: false }}
         />
-
-        {/* <Stack.Screen
-          name="AppointmentNow"
-          component={AppointmentNowScreen}
-          options={{ headerShown: false }}
-        /> */}
         {/* // require Login */}
         <Stack.Screen name="Appointment" options={{ headerShown: false }}>
           {() => (

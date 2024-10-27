@@ -11,7 +11,6 @@ const fetchAppointment = async ({ userId, limit, setAppoinments, status }) => {
     if (limit) {
       url = `${API_APP}/v1/api/book-appointments?userId=${userId}&limit=${limit}&page=1`;
     }
-
     const res = await fetch(`${url}`, {
       method: "GET",
       headers: {

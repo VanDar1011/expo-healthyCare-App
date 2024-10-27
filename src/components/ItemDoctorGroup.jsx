@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import fetchNumberOfDocters from "../utils/doctorgroup/fetchNumberOfDocters";
+import { scaleHeight, scaleWidth } from "../utils/config";
 export default function ItemDoctorGroup({ navigation, group }) {
   const [numberDocters, setNumberDocters] = useState(0);
   const handleClickDoctorDetails = () => {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     height: "35%",
     margin: 5,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 10 * scaleWidth,
     elevation: 2,
     shadowColor: "#000",
     shadowOffset: {
@@ -45,22 +46,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     alignItems: "center",
-    padding: 10,
+    padding: 10 * scaleWidth,
   },
   imageContainer: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 5,
+    padding: 5 * scaleWidth,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
+    width: 100 * scaleWidth,
+    height: 100 * scaleWidth,
+    borderRadius: 50 * scaleWidth,
+    marginBottom: 10 * scaleWidth,
   },
   name: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 16 * scaleWidth,
     fontWeight: "bold",
     color: "#333",
   },

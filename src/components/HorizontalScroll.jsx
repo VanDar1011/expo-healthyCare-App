@@ -12,7 +12,6 @@ const HorizontalScroll = ({ setMedicines, setIdCategory, search }) => {
     try {
       setIdCategory("");
       await searchMedicineByName(search, "", setMedicines);
-      // await fetchMedicines(setMedicines);
     } catch (error) {
       console.error("Error fetching medicines:", error);
     }
@@ -22,7 +21,6 @@ const HorizontalScroll = ({ setMedicines, setIdCategory, search }) => {
     setSelectedOption(name);
     try {
       await searchMedicineByName(search, id, setMedicines);
-      // await fetchMedicinesByCategory(id, setMedicines);
     } catch (error) {
       console.error("Error fetching medicines:", error);
     }
@@ -30,9 +28,6 @@ const HorizontalScroll = ({ setMedicines, setIdCategory, search }) => {
   useEffect(() => {
     fetchMedicinesCategories(setCategories);
   }, []);
-  // useEffect(() => {
-  //   console.log(categories);
-  // }, [categories]);
   return (
     <View style={styles.container}>
       <ScrollView
@@ -66,77 +61,6 @@ const HorizontalScroll = ({ setMedicines, setIdCategory, search }) => {
             />
           );
         })}
-        {/* <Pressable
-          style={[
-            styles.button,
-            selectedOption === 'option1' && styles.activeButton,
-          ]}
-          onPress={() => handlePress('option1')}>
-          <Text
-            style={[
-              styles.buttonText,
-              selectedOption === 'option1' && styles.activeButtonText,
-            ]}>
-            Option 1
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.button,
-            selectedOption === 'option2' && styles.activeButton,
-          ]}
-          onPress={() => handlePress('option2')}>
-          <Text
-            style={[
-              styles.buttonText,
-              selectedOption === 'option2' && styles.activeButtonText,
-            ]}>
-            Option 2
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.button,
-            selectedOption === 'option3' && styles.activeButton,
-          ]}
-          onPress={() => handlePress('option3')}>
-          <Text
-            style={[
-              styles.buttonText,
-              selectedOption === 'option3' && styles.activeButtonText,
-            ]}>
-            Option 3
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.button,
-            selectedOption === 'option4' && styles.activeButton,
-          ]}
-          onPress={() => handlePress('option4')}>
-          <Text
-            style={[
-              styles.buttonText,
-              selectedOption === 'option4' && styles.activeButtonText,
-            ]}>
-            Option 4
-          </Text>
-        </Pressable>
-        <Pressable
-          style={[
-            styles.button,
-            selectedOption === 'option5' && styles.activeButton,
-          ]}
-          onPress={() => handlePress('option5')}>
-          <Text
-            style={[
-              styles.buttonText,
-              selectedOption === 'option5' && styles.activeButtonText,
-            ]}>
-            Option 5
-          </Text>
-        </Pressable>{' '} */}
-        {/* Add more Pressable components as needed */}
       </ScrollView>
     </View>
   );

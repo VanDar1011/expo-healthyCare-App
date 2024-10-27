@@ -9,7 +9,7 @@ class AlertService {
   static ErrorMessages = {
     bookingAppointment: "Đặt lịch hẹn thất bại",
     workingHours:
-      "Giờ làm việc:\nBuổi sáng: 8:00 - 12:00\nBuổi chiều: 13:00 - 17:00\nNgày làm việc: Thứ Hai đến Thứ Sáu",
+      "Giờ làm việc:\nBuổi sáng: 8:00 - 12:00\nBuổi chiều: 13:30 - 17:30\nNgày làm việc: Thứ Hai đến Thứ Sáu",
     buyMedicines: "Mua thuốc thất bại",
   };
 
@@ -32,7 +32,7 @@ class AlertService {
   // Example method to show error messages
   static showErrorAlertByType(errorType) {
     const message = this.ErrorMessages[errorType] || "Có lỗi xảy ra";
-    this.showFailureAlert(message);
+    this.showErrorAlert(message);
   }
 
   // Example method to show success messages

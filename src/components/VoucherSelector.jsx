@@ -11,25 +11,19 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import fetchVouchers from "../utils/voucher/fetchVoucherById";
 import formatVoucherCode from "../utils/voucher/formatVoucherCode";
+import { scaleHeight, scaleWidth } from "../utils/config";
 const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
-  // Danh sách mã voucher mẫu
-  //   const vouchers = [
-  //     { id: "1", code: "DISCOUNT10", description: "Giảm giá 10%" },
-  //     { id: "2", code: "FREESHIP", description: "Miễn phí vận chuyển" },
-  //     { id: "3", code: "BUY1GET1", description: "Mua 1 tặng 1" },
-  //   ];
   const dispatch = useDispatch();
   const { userId, name, email } = useSelector((state) => state.profile);
   const [vouchers, setVouchers] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false); // Trạng thái hiển thị Modal
+  const [modalVisible, setModalVisible] = useState(false);
 
-  // Hàm khi chọn mã voucher
   const handleSelectVoucher = (voucher) => {
     setSelectedVoucher(voucher);
-    setModalVisible(false); // Đóng Modal sau khi chọn
+    setModalVisible(false);
   };
   const handleClearVoucher = () => {
-    setSelectedVoucher(null); // Đặt lại voucher đã chọn về null
+    setSelectedVoucher(null);
   };
   useEffect(() => {
     fetchVouchers(userId, setVouchers);
@@ -41,11 +35,7 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
 
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View style={styles.selectedVoucherContainer}>
-          {/* Hiển thị biểu tượng để mở Modal */}
-          <View
-            style={styles.iconContainer}
-            // Mở Modal khi nhấn vào icon
-          >
+          <View style={styles.iconContainer}>
             <FontAwesome
               name="ticket"
               size={24}
@@ -53,7 +43,6 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
             />
           </View>
 
-          {/* Hiển thị mã voucher đã chọn */}
           <Text style={styles.selectedVoucherText}>
             {selectedVoucher
               ? formatVoucherCode(selectedVoucher.voucher_code)
@@ -62,7 +51,7 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
           {selectedVoucher && (
             <TouchableOpacity
               style={styles.clearButton}
-              onPress={handleClearVoucher} // Xóa voucher khi nhấn vào nút
+              onPress={handleClearVoucher}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Text> Xóa </Text>
@@ -73,12 +62,11 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
         </View>
       </TouchableOpacity>
 
-      {/* Modal để hiển thị danh sách voucher */}
       <Modal
         visible={modalVisible}
         transparent={true}
         animationType="slide"
-        onRequestClose={() => setModalVisible(false)} // Đóng Modal khi nhấn ngoài vùng
+        onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -94,7 +82,7 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.voucherItem}
-                  onPress={() => handleSelectVoucher(item)} // Chọn voucher và đóng Modal
+                  onPress={() => handleSelectVoucher(item)}
                 >
                   <Text style={styles.voucherCode}>
                     {formatVoucherCode(item.voucher_code)}
@@ -119,13 +107,13 @@ const VoucherSelector = ({ selectedVoucher, setSelectedVoucher }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 10 * scaleWidth,
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 20,
+    fontSize: 20 * scaleWidth,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 10 * scaleHeight,
     textAlign: "center",
   },
   selectedVoucherContainer: {
@@ -133,17 +121,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 10,
-    padding: 3,
+    borderRadius: 10 * scaleWidth,
+    padding: 3 * scaleWidth,
   },
   iconContainer: {
-    padding: 10,
+    padding: 10 * scaleWidth,
     backgroundColor: "#e0f7fa",
-    borderRadius: 50,
-    marginRight: 10,
+    borderRadius: 50 * scaleWidth,
+    marginRight: 10 * scaleWidth,
   },
   selectedVoucherText: {
-    fontSize: 16,
+    fontSize: 16 * scaleWidth,
     color: "#333",
   },
   modalContainer: {
@@ -155,26 +143,26 @@ const styles = StyleSheet.create({
   modalContent: {
     width: "80%",
     backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
+    borderRadius: 10 * scaleWidth,
+    padding: 20 * scaleWidth,
     elevation: 10,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 18 * scaleWidth,
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
   },
   voucherItem: {
-    padding: 15,
-    marginVertical: 5,
+    padding: 15 * scaleWidth,
+    marginVertical: 5 * scaleHeight,
     backgroundColor: "#f9f9f9",
-    borderRadius: 8,
+    borderRadius: 8 * scaleWidth,
     borderColor: "#ddd",
     borderWidth: 1,
   },
   voucherCode: {
-    fontSize: 16,
+    fontSize: 16 * scaleWidth,
     fontWeight: "bold",
   },
   voucherDescription: {
@@ -182,18 +170,18 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   closeButton: {
-    marginTop: 20,
+    marginTop: 20 * scaleHeight,
     alignSelf: "center",
-    padding: 10,
+    padding: 10 * scaleWidth,
     backgroundColor: "#00838f",
-    borderRadius: 8,
+    borderRadius: 8 * scaleWidth,
   },
   closeButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 16 * scaleWidth,
   },
   clearButton: {
-    marginLeft: 60,
+    marginLeft: 60 * scaleWidth,
   },
   text_no_voucher: {
     color: "#4CAF50",

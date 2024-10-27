@@ -4,16 +4,12 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import * as Location from "expo-location";
 import { MAPBOX_KEY } from "../utils/config";
 const MapboxWebMap = ({ route }) => {
-  // console.log("route : ", route.params);
-  // console.log("startAddress : ", route.params.startAddress);
-  // console.log("endAddress : ", route.params.endAddress);
   const webViewRef = useRef(null);
   const [directionsEnabled, setDirectionsEnabled] = useState(false);
   const [currentCoords, setCurrentCoords] = useState([
     route.params.address.startAddress.longitude,
     route.params.address.startAddress.latitude,
-  ]); // Tọa độ hiện tại
-  // const startCoords = [20.972402786637492, 105.75796964789255]; // Tọa độ điểm bắt đầu
+  ]);
   const endCoords = [
     route.params.address.endAddress.longitude,
     route.params.address.endAddress.latitude,

@@ -1,24 +1,24 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {ToastAndroid} from 'react-native';
-
+import React, { Component } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { ToastAndroid } from "react-native";
+import { scaleHeight, scaleWidth } from "../utils/config";
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = {hasError: false};
+    this.state = { hasError: false };
   }
 
   static getDerivedStateFromError() {
-    return {hasError: true};
+    return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
     // Gửi thông tin lỗi đến server hoặc dịch vụ theo dõi lỗi
     console.error(error, errorInfo);
     ToastAndroid.showWithGravity(
-      'Đã xảy ra lỗi!',
+      "Đã xảy ra lỗi!",
       ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
+      ToastAndroid.CENTER
     );
   }
 
@@ -40,12 +40,12 @@ class ErrorBoundary extends Component {
 const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorText: {
-    color: 'red',
-    fontSize: 18,
+    color: "red",
+    fontSize: 18 * scaleWidth,
   },
 });
 

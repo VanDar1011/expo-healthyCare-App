@@ -23,14 +23,8 @@ import API_APP from "../../../utils/config"; // lay bien moi truong
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const { userId, name, email } = useSelector((state) => state.profile);
-  console.log(userId, name, email);
-  // if (userId && name && email) {
-  //   navigation.reset({
-  //     index: 0,
-  //     routes: [{ name: "Home" }],
-  //   });
-  //   // navigation.navigate("Home");
-  // }
+  // console.log(userId, name, email);
+
   const [isSecure, setIsSecure] = useState(true);
 
   const toggleSecureEntry = () => {
@@ -58,8 +52,6 @@ export default function LoginScreen({ navigation }) {
     },
   });
   const onPressSend = async (formData) => {
-    // Perform actions with the validated form data
-    // console.log(formData);
     try {
       const res = await fetch(`${API_APP}/v1/api/auth/login`, {
         method: "POST",
@@ -74,12 +66,12 @@ export default function LoginScreen({ navigation }) {
         Alert.alert("Login Failed", `${result.message}`);
         return;
       }
-      console.log(result);
+      // console.log(result);
       const userId = result.data.id.toString();
       const name = result.data.name.toString();
       const email = result.data.email.toString();
 
-      console.log(userId, name);
+      // console.log(userId, name);
       dispatch(setProfileRedux({ userId, name, email }));
       await setProfile(userId, name, email);
       Alert.alert("Login Success", `${result.message}`);
@@ -89,7 +81,8 @@ export default function LoginScreen({ navigation }) {
         routes: [{ name: "Home" }],
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      Alert.alert("Login Failed", `${error?.message || error}`);
     }
   };
   const handleNoLogin = () => {
@@ -104,7 +97,6 @@ export default function LoginScreen({ navigation }) {
       const profile = await getProfile();
       if (profile.userId && profile.name && profile.email) {
         dispatch(setProfileRedux({ userId, name, email }));
-        // Navigate to Home if the user is already logged in
         navigation.reset({
           index: 0,
           routes: [{ name: "Home" }],
@@ -114,9 +106,6 @@ export default function LoginScreen({ navigation }) {
     checkProfile();
   }, []);
   return (
-    // <ImageBackground
-    //   source={require('../assets/img/bg.jpg')} // Replace with your image URL
-    //   style={styles.backgroundImage}>
     <View style={styles.container}>
       <Image
         source={require("../../../assets/img/logo_stand.png")}
@@ -192,6 +181,5 @@ export default function LoginScreen({ navigation }) {
         </Pressable>
       </View>
     </View>
-    // </ImageBackground>
   );
 }

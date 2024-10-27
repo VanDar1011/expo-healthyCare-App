@@ -35,24 +35,6 @@ const AppointmentListScreen = () => {
   useEffect(() => {
     fetchDataAppointment();
   }, [fetchDataAppointment, loading]);
-  // const fetchDataAppointment = async () => {
-  //   try {
-  //     const { userId, name } = await getProfile();
-  //     console.log({ userId, name });
-  //     fetchAppointment({
-  //       userId: userId,
-  //       setAppoinments,
-  //       // setLoading: setLoading,
-  //       status,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching profile:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAppointment();
-  // }, [status]);
   const renderAppointment = ({ item }) => (
     <ItemAppointment appointment={item} />
   );
@@ -60,11 +42,6 @@ const AppointmentListScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Danh sách lịch hẹn</Text>
-
-      {/* {loading ? (
-        <FullScreenLoading visible={loading} />
-      ) : ( */}
-
       <Picker
         selectedValue={status}
         onValueChange={(itemValue) => setStatus(itemValue)}

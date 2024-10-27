@@ -2,15 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 export default function ItemDoctor({ doctor, navigation }) {
-  // console.log("Item doctors", doctor);
-  // const navigation = useNavigation();
   return (
-    <Pressable
-    //   onPress={() =>
-    //     navigation.navigate("DoctorDetails", { doctorId: doctor.id })
-    //   }
-    // Reset pressed state
-    >
+    <Pressable>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: doctor.image }} style={styles.image} />
@@ -42,12 +35,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#fff", // White background for the item
+    backgroundColor: "#fff",
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // For Android shadow
+    elevation: 3,
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#e0e0e0",
@@ -60,7 +53,7 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
-    borderRadius: 50, // Circular image
+    borderRadius: 50,
     marginRight: 10,
   },
   textContainer: {
@@ -70,42 +63,41 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333", // Darker text color for readability
+    color: "#333",
     marginBottom: 5,
   },
   group: {
     fontSize: 16,
-    color: "#666", // Lighter text for the group name
+    color: "#666",
   },
   experience: {
-    fontSize: 14, // Slightly smaller font for experience
-    color: "#2ecc71", // Green color to make it stand out
+    fontSize: 14,
+    color: "#2ecc71",
     marginTop: 5,
-    fontStyle: "italic", // Optional: Italicize the text for emphasis
+    fontStyle: "italic",
   },
   branch: {
-    fontSize: 14, // Same size as experience, or slightly smaller
-    color: "#95a5a6", // Lighter grey color for subtlety
-    marginTop: 5, // Space between the experience and branch
-    fontStyle: "italic", // Italicized for subtle emphasis
+    fontSize: 14,
+    color: "#95a5a6",
+    marginTop: 5,
+    fontStyle: "italic",
   },
   btn_book: {
-    backgroundColor: "#28a745", // Green background
-    color: "#FFFFFF", // White text color
-    paddingVertical: 4, // Vertical padding for button
-    // paddingHorizontal: 6, // Horizontal padding for button
-    borderRadius: 5, // Rounded corners
-    textAlign: "center", // Center text
-    fontSize: 16, // Font size
-    fontWeight: "bold", // Bold text
-    elevation: 3, // Shadow for Android
-    shadowColor: "#000", // Shadow color for iOS
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
-    shadowOpacity: 0.2, // Shadow opacity
-    shadowRadius: 2, // Shadow radius
-    marginVertical: 5, // Space around button
+    backgroundColor: "#28a745",
+    color: "#FFFFFF",
+    paddingVertical: 4,
+    borderRadius: 5,
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    marginVertical: 5,
   },
   btn_book_pressed: {
-    backgroundColor: "#218838", // Darker green when pressed
+    backgroundColor: "#218838",
   },
 });

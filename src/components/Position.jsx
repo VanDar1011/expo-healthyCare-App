@@ -146,9 +146,6 @@ const Postion = () => {
     };
     functionFetchDoctorGroup();
   }, []);
-  // if (loading) {
-  //   return <FullScreenLoading visible={loading} />;
-  // }
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Vị trí của bạn:</Text>
@@ -157,12 +154,6 @@ const Postion = () => {
       ) : (
         location && (
           <View>
-            {/* <Text style={styles.location}>
-              Vĩ độ: {location.coords.latitude}
-            </Text>
-            <Text style={styles.location}>
-              Kinh độ: {location.coords.longitude}
-            </Text> */}
             <Text style={styles.location}>{address}</Text>
           </View>
         )
