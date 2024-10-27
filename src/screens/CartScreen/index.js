@@ -53,15 +53,6 @@ const CartScreen = () => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
-  // Tính tổng số tiền
-  // const totalAmount = itemsSelected.reduce(
-  //   (total, item) => total + item.new_price * item.quantity,
-  //   0,
-  // );
-  // const totalAmount = items
-  //   .filter((item) => itemsSelected.includes(item.id))
-  //   .reduce((total, item) => total + item.new_price * item.quantity, 0);
-
   const paymentCarts = async () => {
     try {
       // create payment intent

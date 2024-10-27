@@ -84,17 +84,7 @@ const SaleBackground = () => {
     });
   };
 
-  return (
-    <View>
-      {/* <Text style={{ fontSize: 18 }}>
-        Press the button to trigger a sale notification:
-      </Text> */}
-      {/* <Button
-        title="Trigger Sale Notification"
-        onPress={() => triggerSaleNotification("🎉 Mega Sale!", "70%")}
-      /> */}
-    </View>
-  );
+  return <View></View>;
 };
 
 export default SaleBackground;

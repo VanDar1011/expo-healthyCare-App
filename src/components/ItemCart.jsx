@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-// import CheckBox from '@react-native-community/checkbox';
 import { Swipeable } from "react-native-gesture-handler";
 import formatCurrency from "../utils/formatMoney";
 import Icon from "react-native-vector-icons/FontAwesome";

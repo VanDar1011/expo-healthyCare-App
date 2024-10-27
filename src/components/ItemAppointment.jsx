@@ -8,25 +8,21 @@ const AppointmentItem = ({ appointment }) => {
     undefined,
     options
   );
-  // console.log(formattedStartDate);
   const [day, month, year] = formattedStartDate.split("/").map(Number);
-  const selectedDate = new Date(year, month - 1, day); // Tháng bắt đầu từ 0
+  const selectedDate = new Date(year, month - 1, day);
 
-  const currentDate = new Date(); // Lấy ngày hiện tại
+  const currentDate = new Date();
   const isExpired = selectedDate < currentDate; //
-  // Định dạng thời gian (có thể sử dụng thư viện moment.js để dễ hơn)
   const formattedStartTime = new Date(startTime).toLocaleTimeString();
   const formattedEndTime = new Date(endTime).toLocaleTimeString();
 
   return (
     <View style={styles.container}>
-      {/* <Image source={{ uri: doctor.image }} style={styles.image} /> */}
       <Image
         source={{
           uri: doctor?.image
             ? doctor.image
-            : // : require("../assets/img/profile.jpg"),
-              "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=",
+            : "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=",
         }}
         style={styles.image}
       />
@@ -52,10 +48,10 @@ const AppointmentItem = ({ appointment }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: 16 * scaleWidth,
+    padding: 10 * scaleWidth,
     backgroundColor: "#fff",
     borderRadius: 12 * scaleWidth,
-    marginBottom: 16 * scaleHeight,
+    marginBottom: 10 * scaleHeight,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
@@ -75,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   doctorName: {
-    fontSize: 18 * scaleWidth,
+    fontSize: 16 * scaleWidth,
     fontWeight: "bold",
     color: "#333",
     marginBottom: 8 * scaleHeight,
@@ -97,13 +93,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   expiredText: {
-    color: "red", // Màu sắc cho thông báo hết hạn
-    fontWeight: "bold", // Đậm hơn
+    color: "red",
+    fontWeight: "bold",
   },
   upcomingText: {
     fontSize: 16,
-    color: "green", // Màu xanh cho văn bản "Sắp tới"
-    fontWeight: "bold", // In đậm
+    color: "green",
+    fontWeight: "bold",
   },
   statusContainer: {
     flexDirection: "row",

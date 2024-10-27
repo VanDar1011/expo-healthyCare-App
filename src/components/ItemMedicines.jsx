@@ -6,7 +6,6 @@ import { scaleHeight, scaleWidth } from "../utils/config";
 export default function ItemMedicines({ item, navigation }) {
   const [medicine, setMedicine] = useState(item);
   const handleMedicineDetail = () => {
-    // console.log('medicine :', medicine);
     navigation.navigate("DetailsMedicine", { item: medicine });
   };
   return (
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
     marginTop: 10 * scaleHeight,
     height: "45%",
     flexDirection: "column",
-    // justifyContent: "space-between",
   },
   container_name: {
     height: 20 * scaleHeight,

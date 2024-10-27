@@ -16,8 +16,6 @@ const AppointmentForm = () => {
     date: new Date(),
     time: new Date(),
   });
-  // const [showDatePicker, setShowDatePicker] = useState(true); // Mặc định bật DatePicker
-  // const [showTimePicker, setShowTimePicker] = useState(true); // Mặc định bật TimePicker
   const [departments, setDoctorGroups] = useState([]);
   const handleInputChange = (key, value) => {
     setFormData({ ...formData, [key]: value });

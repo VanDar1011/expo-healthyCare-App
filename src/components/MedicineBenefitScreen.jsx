@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 2, // Android shadow
+    elevation: 2,
   },
   container_btn_back: {
     justifyContent: "center",
