@@ -12,6 +12,8 @@ export default html = `<!DOCTYPE html>
 </head>
 <body>
   <div id="map"></div>
+
+  <div id="result"></div>
   <script>
     mapboxgl.accessToken = 'something'; // Thay bằng token của bạn
     const map = new mapboxgl.Map({
