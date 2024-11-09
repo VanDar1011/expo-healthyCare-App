@@ -7,9 +7,12 @@ import { setProfileRedux } from "../../store/slice/profileSlice";
 import Sidebar from "../../components/Sidebar";
 import ListAppoinemt from "../../components/ListAppoinemt";
 import { useDispatch, useSelector } from "react-redux";
+import SaleBackground from "../../components/SaleBackground";
+import countOrderById from "../../utils/order/countOrderById";
+import { setCount } from "../../store/slice/countOrderSlice";
 export default function HomeVip({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
-
+  const { count } = useSelector((state) => state.countOrder);
   // const [profile, setProfile] = useState(null);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -21,19 +24,21 @@ export default function HomeVip({ navigation }) {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
-  // const fetchProfile = async () => {
-  //   try {
-  //     const { userId, name, email } = await getProfile();
-  //     dispatch(setProfileRedux({ userId, name, email }));
-  //   } catch (error) {
-  //     console.error("Error fetching profile:", error);
-  //   }
-  // };
+  const fetchProfile = async () => {
+    try {
+      const { userId, name, email } = await getProfile();
+      const count = await countOrderById(userId, setCount);
+      dispatch(setCount(count));
+      dispatch(setProfileRedux({ userId, name, email }));
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
 
   // Fetch profile when the component mounts or after a successful login
-  // useEffect(() => {
-  //   fetchProfile();
-  // }, []);
+  useEffect(() => {
+    fetchProfile();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row_logo}>
@@ -122,6 +127,9 @@ export default function HomeVip({ navigation }) {
                 source={require("../../assets/icon/cart.png")}
                 style={styles.img_item_service}
               />
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{count}</Text>
+              </View>
               {/* <Icon name="shopping-cart" size={30} color="#199" /> */}
             </Pressable>
             <Text style={styles.name_item_service}>Giỏ hàng</Text>
@@ -162,6 +170,7 @@ export default function HomeVip({ navigation }) {
         </View>
         <ListAppoinemt profile={profile} />
       </View>
+      <SaleBackground />
     </View>
   );
 }

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-
+import styles from "./style";
 import fetchArticles from "../../utils/articles/fetchArticles";
 import ItemArticles from "../../components/ItemArticles";
 const ArticlesScreen = ({ navigation }) => {
@@ -41,23 +41,5 @@ const ArticlesScreen = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#fff",
-  },
-  textTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "black",
-    textAlign: "center",
-  },
-  containerList: {
-    flex: 1,
-  },
-});
 
 export default ArticlesScreen;

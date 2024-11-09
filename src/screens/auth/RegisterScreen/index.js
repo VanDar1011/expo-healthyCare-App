@@ -16,7 +16,6 @@ import * as yup from "yup";
 import GradientButton from "../../../components/GradientButton";
 import { CheckBox } from "react-native-elements";
 import API_APP from "../../../utils/config";
-// const API_APP = process.env["API_APP"];
 
 export default function RegisterScreen({ navigation }) {
   const [isSecure, setIsSecure] = useState(true);
@@ -33,20 +32,19 @@ export default function RegisterScreen({ navigation }) {
     setIsSecureConfirm(!isSecureConfirm);
   };
   const schema = yup.object().shape({
-    user_name: yup.string().required("Tên trống"),
-    email: yup.string().required("Email trống").email("Invalid email"),
+    user_name: yup.string().required("Trường này không được trống"),
+    email: yup
+      .string()
+      .required("Trường này không được trống")
+      .email("Email không hợp lệ"),
     password: yup
       .string()
-      .required("Mật khẩu trống")
-      .min(8, "Password must contain at least 8 characters")
-      .matches(
-        /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,26}$/,
-        `Must have number, uppercase, lowercase, non-alpha numeric number`
-      ),
+      .required("Trường này không được trống")
+      .min(8, "Mật khẩu ít nhất 8 kí tự"),
     confim_password: yup
       .string()
-      .required("Nhập lại mật khẩu trống")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .required("Trường này không được trống")
+      .oneOf([yup.ref("password"), null], "Mật khẩu không khớp"),
   });
   const {
     control,
@@ -62,11 +60,9 @@ export default function RegisterScreen({ navigation }) {
     },
   });
   const onPressSend = async (formData) => {
-    // console.log(formData);
     try {
       const { user_name, email, password } = formData;
       const data = { name: user_name, email, password };
-      // console.log(data);
       const res = await fetch(`${API_APP}/v1/api/auth/signup`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -85,6 +81,7 @@ export default function RegisterScreen({ navigation }) {
       Alert.alert("Register Success", `${result.message}`);
       navigation.navigate("Login");
     } catch (error) {
+      Alert.alert("Register Failed", `${error?.message || error}`);
       console.log(error);
     }
   };

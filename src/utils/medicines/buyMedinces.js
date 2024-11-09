@@ -17,12 +17,13 @@ const byMedinines = async (data) => {
       throw new Error(errData.message || "Something went wrong");
     }
 
-    if (Platform.OS === "android") {
-      toastCustom("Order created successfully");
-    } else {
-      Alert.alert("Notification", "Order created successfully");
-    }
+    // if (Platform.OS === "android") {
+    //   toastCustom("Mua thuốc thành công");
+    // } else {
+    //   Alert.alert("Thông báo", "Mua thuốc thành công");
+    // }
   } catch (error) {
+    Alert.alert("Lỗi", "Có lỗi xảy ra");
     console.log("Error fetching byMedinines:", error.message || error);
   }
 };

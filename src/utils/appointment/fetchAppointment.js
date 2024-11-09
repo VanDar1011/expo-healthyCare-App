@@ -9,9 +9,8 @@ const fetchAppointment = async ({ userId, limit, setAppoinments, status }) => {
       url = `${API_APP}/v1/api/book-appointments?userId=${userId}`;
     }
     if (limit) {
-      url = `${API_APP}/v1/api/book-appointments?userId=${userId}&limit=${limit}&page=1&status=done`;
+      url = `${API_APP}/v1/api/book-appointments?userId=${userId}&limit=${limit}&page=1`;
     }
-
     const res = await fetch(`${url}`, {
       method: "GET",
       headers: {

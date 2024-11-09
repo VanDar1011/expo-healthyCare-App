@@ -9,16 +9,19 @@ import {
 } from "react-native";
 import ItemMedicines from "./ItemMedicines";
 import { scaleHeight, scaleWidth } from "../utils/config";
-export default function ListMedicines({ navigation, medicines, loading }) {
-  console.log("loading", loading);
-  //   console.log(medicines);
+export default function ListMedicines({
+  navigation,
+  medicines,
+  loading,
+  setCount,
+}) {
   return (
     <View style={styles.view_holder}>
       <View>
         <Text style={styles.title_medicine}>Danh sách thuốc</Text>
       </View>
 
-      {loading ? ( // Show loading indicator while fetching
+      {loading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
           <Text>Loading...</Text>
@@ -49,27 +52,19 @@ const styles = StyleSheet.create({
     marginLeft: 15 * scaleWidth,
     marginBottom: 10,
   },
-  // container: {
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   flexWrap: "wrap",
-  //   justifyContent: "space-between",
-  //   gap: 10 * scaleWidth,
-  // },
+
   container: {
-    // paddingBottom: 20 * scaleHeight,
-    // width: "100%",
     paddingBottom: 5 * scaleHeight,
   },
   row: {
-    justifyContent: "space-between", // Space between items in each row
-    marginBottom: 10, // Space between rows
+    justifyContent: "space-between",
+    marginBottom: 10 * scaleHeight,
   },
   loadingContainer: {
     flex: 1,
     zIndex: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff", // Optional: Background color
+    backgroundColor: "#fff",
   },
 });

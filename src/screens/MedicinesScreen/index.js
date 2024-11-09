@@ -8,16 +8,22 @@ import debounce from "lodash.debounce";
 import HorizontalScroll from "../../components/HorizontalScroll";
 import ListMedicines from "../../components/ListMedicines";
 import searchMedicineByName from "../../utils/medicines/searchMedicineByName";
+import countOrderById from "../../utils/order/countOrderById";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import increaseCount from "../../store/slice/countOrderSlice";
 export default function MedicinesScreen() {
   const navigation = useNavigation();
   const [medicines, setMedicines] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
-  // const [selectedOption, setSelectedOption] = useState(null);
-  const [idCategory, setIdCategory] = useState(1);
-
+  // const [count, setCount] = useState(0);
+  const [idCategory, setIdCategory] = useState("");
+  const dispatch = useDispatch();
+  const { userId } = useSelector((state) => state.profile);
+  const { count } = useSelector((state) => state.countOrder);
+  console.log("count", count);
+  console.log("userId", userId);
   const updateSearch = (text) => {
     setSearch(text);
     debouncedSearch(text);
@@ -47,6 +53,16 @@ export default function MedicinesScreen() {
     };
     fethchData();
   }, []);
+  // useEffect(() => {
+  //   const countData = async (userId) => {
+  //     try {
+  //       countOrderById(userId, setCount, dispatch);
+  //     } catch (error) {
+  //       console.error("Error fetching medicines:", error);
+  //     }
+  //   };
+  //   countData(userId);
+  // }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row_title}>
@@ -56,6 +72,9 @@ export default function MedicinesScreen() {
             source={require("../../assets/icon/cart.png")}
             style={styles.img_item_service}
           />
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{count}</Text>
+          </View>
         </Pressable>
       </View>
       <View style={styles.container_seach_bar}>
@@ -99,6 +118,7 @@ export default function MedicinesScreen() {
       <HorizontalScroll
         setMedicines={setMedicines}
         setIdCategory={setIdCategory}
+        search={search}
       />
       <ListMedicines
         medicines={medicines}

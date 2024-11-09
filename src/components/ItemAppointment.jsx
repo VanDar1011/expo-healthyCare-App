@@ -8,13 +8,24 @@ const AppointmentItem = ({ appointment }) => {
     undefined,
     options
   );
-  // Định dạng thời gian (có thể sử dụng thư viện moment.js để dễ hơn)
+  const [day, month, year] = formattedStartDate.split("/").map(Number);
+  const selectedDate = new Date(year, month - 1, day);
+
+  const currentDate = new Date();
+  const isExpired = selectedDate < currentDate; //
   const formattedStartTime = new Date(startTime).toLocaleTimeString();
   const formattedEndTime = new Date(endTime).toLocaleTimeString();
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: doctor.image }} style={styles.image} />
+      <Image
+        source={{
+          uri: doctor?.image
+            ? doctor.image
+            : "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=",
+        }}
+        style={styles.image}
+      />
       <View style={styles.infoContainer}>
         <Text style={styles.doctorName}>{doctor.name}</Text>
         <Text style={styles.doctor_group}>{doctor.group}</Text>
@@ -22,6 +33,13 @@ const AppointmentItem = ({ appointment }) => {
           {formattedStartTime} - {formattedEndTime}
         </Text>
         <Text style={styles.dateText}>{formattedStartDate}</Text>
+        <View style={styles.statusContainer}>
+          {isExpired ? (
+            <Text style={styles.expiredText}>Hết hạn</Text>
+          ) : (
+            <Text style={styles.upcomingText}>Sắp tới </Text>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -30,10 +48,10 @@ const AppointmentItem = ({ appointment }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: 16 * scaleWidth,
+    padding: 10 * scaleWidth,
     backgroundColor: "#fff",
     borderRadius: 12 * scaleWidth,
-    marginBottom: 16 * scaleHeight,
+    marginBottom: 10 * scaleHeight,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
@@ -53,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   doctorName: {
-    fontSize: 18 * scaleWidth,
+    fontSize: 16 * scaleWidth,
     fontWeight: "bold",
     color: "#333",
     marginBottom: 8 * scaleHeight,
@@ -73,6 +91,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#333",
     fontWeight: "bold",
+  },
+  expiredText: {
+    color: "red",
+    fontWeight: "bold",
+  },
+  upcomingText: {
+    fontSize: 16,
+    color: "green",
+    fontWeight: "bold",
+  },
+  statusContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
 

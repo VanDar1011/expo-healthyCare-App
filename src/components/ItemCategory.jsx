@@ -7,7 +7,6 @@ export default function ItemCategory({
   handlePress,
 }) {
   const { name, id } = category;
-  //   console.log(category);
   return (
     <Pressable
       style={[styles.button, selectedOption === name && styles.activeButton]}

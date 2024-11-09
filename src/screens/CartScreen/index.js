@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CartItem from "../../components/ItemCart"; // Đảm bảo bạn đã tạo CartItem component
 import fetchOrderById from "../../utils/order/fetchOrderById";
@@ -13,12 +13,15 @@ import createPaymentIntent from "../../utils/payment/createPaymentIntent";
 import { useStripe } from "@stripe/stripe-react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { descreaseCount } from "../../store/slice/countOrderSlice";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { userId, email, name } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const increaseQuantity = async (id) => {
     const quantity = items.find((item) => item.id === id).quantity;
@@ -46,17 +49,9 @@ const CartScreen = () => {
 
   const deleteItem = async (id) => {
     await deleteOrderById(id);
+    dispatch(descreaseCount());
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
-
-  // Tính tổng số tiền
-  // const totalAmount = itemsSelected.reduce(
-  //   (total, item) => total + item.new_price * item.quantity,
-  //   0,
-  // );
-  // const totalAmount = items
-  //   .filter((item) => itemsSelected.includes(item.id))
-  //   .reduce((total, item) => total + item.new_price * item.quantity, 0);
 
   const paymentCarts = async () => {
     try {
@@ -89,6 +84,7 @@ const CartScreen = () => {
       itemsSelected.map(async (id) => {
         await paymentCart(id);
       });
+      Alert.alert("Thanh toán thành công");
       setItems((prevItems) =>
         prevItems.filter((item) => !itemsSelected.includes(item.id))
       );
@@ -169,7 +165,7 @@ const CartScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-      <FlatList
+      {/* <FlatList
         data={items}
         renderItem={({ item }) => (
           <CartItem
@@ -183,7 +179,7 @@ const CartScreen = () => {
         )}
         keyExtractor={(item) => item.id}
         style={styles.list}
-      />
+      /> */}
       <View style={styles.footer}>
         <Text style={styles.totalText}>Thành Tiền:</Text>
         <Text style={styles.totalAmount}>{formatCurrency(totalAmount)}</Text>

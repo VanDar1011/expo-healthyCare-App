@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Button,
   TextInput,
+  Alert,
 } from "react-native";
 import * as Location from "expo-location";
 import fetchNearPlace from "../utils/map/fetchNearPlace";
@@ -16,18 +17,25 @@ import { useDispatch, useSelector } from "react-redux";
 import fetchDoctorGroup from "../utils/doctorgroup/fetchDoctorGroup";
 import RNPickerSelect from "react-native-picker-select";
 import formatDistance from "../utils/map/formatDistance";
+import FullScreenLoading from "./FulllScreenLoading";
+import bookAppointment from "../utils/appointment/bookAppointment";
+import { useNavigation } from "@react-navigation/native";
 const Postion = () => {
+  const navaigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [address, setAddress] = useState("");
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [departments, setDoctorGroups] = useState([]);
   const { userId, email, name } = useSelector((state) => state.profile);
+  const [loading, isLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: name,
     email: email,
     phone: "",
     branch: null,
+    departmentId: null,
     date: new Date(),
     time: new Date(),
   });
@@ -45,9 +53,38 @@ const Postion = () => {
     handleInputChange("time", currentTime);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Logic xử lý đặt lịch ở đây (gửi dữ liệu hoặc xác nhận)
-    console.log("Form Data: ", formData);
+    // console.log(formData);
+    const dateString = formData.date.toISOString().split("T")[0];
+    // console.log(dateString);
+    const dateParts = dateString.split("-"); // Tách thành mảng ngày tháng năm
+    const year = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
+    const day = parseInt(dateParts[2], 10);
+    const startDateTime = new Date(
+      year,
+      month,
+      day,
+      formData.time.getHours(),
+      formData.time.getMinutes()
+    );
+    console.log("Start Time", startDateTime);
+    const endDateTime = startDateTime.setHours(
+      startDateTime.getHours() + 2,
+      startDateTime.getMinutes() + 59
+    );
+    // Thiết lập thời gian bắt đầu
+    const data = await bookAppointment({
+      userId,
+      email,
+      startTime: startDateTime,
+      endTime: endDateTime,
+      phone: formData.phone,
+      branch_id: formData.branch,
+      specialist_id: formData.departmentId,
+    });
+    Alert.alert("Đặt hàng", data.message);
   };
 
   const handleNext = (item) => {
@@ -58,6 +95,11 @@ const Postion = () => {
   const handleCloseModal = () => {
     // Đóng modal
     setIsFormVisible(false);
+  };
+  const handleOpenMap = () => {
+    navaigation.navigate("MapBox");
+    // Mở map
+    console.log("Open Map");
   };
   useEffect(() => {
     (async () => {
@@ -71,7 +113,21 @@ const Postion = () => {
       // Lấy vị trí hiện tại
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
+
       if (currentLocation) {
+        const resAddress = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${currentLocation.coords.latitude}&lon=${currentLocation.coords.longitude}&format=json`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const dataAddress = await resAddress.json();
+        console.log(dataAddress);
+        setAddress(dataAddress.display_name);
+        isLoading(false);
         await fetchNearPlace(
           currentLocation.coords.latitude,
           currentLocation.coords.longitude,
@@ -98,12 +154,7 @@ const Postion = () => {
       ) : (
         location && (
           <View>
-            <Text style={styles.location}>
-              Vĩ độ: {location.coords.latitude}
-            </Text>
-            <Text style={styles.location}>
-              Kinh độ: {location.coords.longitude}
-            </Text>
+            <Text style={styles.location}>{address}</Text>
           </View>
         )
       )}
@@ -116,12 +167,18 @@ const Postion = () => {
             <Text style={styles.distance}>
               Khoảng cách :{formatDistance(item.distance)} km
             </Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleNext(item)}
-            >
-              <Text style={styles.buttonText}>Đặt tiếp theo</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={handleOpenMap}>
+                <Text style={styles.buttonText}>Đường đi</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleNext(item)}
+              >
+                <Text style={styles.buttonText}>Đặt tiếp theo</Text>
+              </TouchableOpacity>
+              <Text></Text>
+            </View>
           </View>
         )}
       />
@@ -263,12 +320,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#007BFF", // Màu nền cho nút
     padding: 10,
     borderRadius: 5,
-    alignItems: "center",
+    // alignItems: "center",
   },
   buttonText: {
-    color: "#fff", // Màu chữ trong nút
+    color: "black", // Màu chữ trong nút
     fontSize: 16,
     fontWeight: "bold",
+    textAlign: "center",
   },
   containerModal: {
     position: "absolute", // Set to absolute
@@ -375,6 +433,11 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 18,
     color: "#FF0000", // Màu đỏ cho nút đóng
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 

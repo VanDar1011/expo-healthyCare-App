@@ -2,7 +2,6 @@ import React from "react";
 import { Pressable, Text, StyleSheet, Image, View } from "react-native";
 import { scaleHeight, scaleWidth } from "../utils/config";
 export default function ItemArticles({ item, navigation }) {
-  // console.log(item);
   return (
     <Pressable
       style={styles.articleItem}
@@ -15,8 +14,6 @@ export default function ItemArticles({ item, navigation }) {
           resizeMode="cover"
         />
       </View>
-
-      {/* Text Section */}
       <View style={styles.textContainer}>
         <Text style={styles.articleTitle}>{item.title}</Text>
         <Text style={styles.articleDescription}>{item.description}</Text>
@@ -36,7 +33,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 2, // Android shadow
+    elevation: 2,
   },
   containerImg: {
     justifyContent: "center",

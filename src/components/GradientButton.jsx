@@ -21,8 +21,6 @@ const GradientButton = ({ title, onPress }) => {
 const styles = StyleSheet.create({
   btn_submit: {
     width: "100%",
-    // alignItems: 'center',
-    // justifyContent: 'center',
     overflow: "hidden",
   },
   button: {
