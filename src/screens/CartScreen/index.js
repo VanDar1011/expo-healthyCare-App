@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { descreaseCount } from "../../store/slice/countOrderSlice";
+import { setCount } from "../../store/slice/countOrderSlice";
 const CartScreen = () => {
   const [items, setItems] = useState([]);
   const [itemsSelected, setItemsSelected] = useState([]);
@@ -84,10 +85,12 @@ const CartScreen = () => {
       itemsSelected.map(async (id) => {
         await paymentCart(id);
       });
+
       Alert.alert("Thanh toán thành công");
       setItems((prevItems) =>
         prevItems.filter((item) => !itemsSelected.includes(item.id))
       );
+      // console.log("Number item : ", items.length);
       setItemsSelected([]);
     } catch (e) {
       console.error("Error", e);
@@ -131,6 +134,9 @@ const CartScreen = () => {
 
     fetchData(); // Gọi hàm async trong useEffect
   }, []);
+  useEffect(() => {
+    dispatch(setCount(items.length));
+  }, [items]);
 
   return (
     <View style={styles.container}>
