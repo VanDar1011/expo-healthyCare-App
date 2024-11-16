@@ -72,7 +72,7 @@ const Sidebar = ({ navigation, toggleSidebar, visible }) => {
           />
         </View>
         <TouchableOpacity
-          onPress={() => handleNavigate("Appointment")}
+          onPress={() => handleNavigate("DoctorGroup")}
           style={styles.menuItem}
         >
           <Text style={styles.menuText}>Đặt lịch</Text>
