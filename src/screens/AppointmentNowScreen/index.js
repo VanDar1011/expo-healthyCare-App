@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import fetchNearPlace from "../../utils/map/fetchNearPlace";
@@ -296,29 +297,20 @@ const Postion = () => {
             {/* Chọn Khoa */}
             <Text style={styles.labelModal}>Chọn Khoa:</Text>
             <View style={styles.pickerContainerKhoaModal}>
-              <RNPickerSelect
+              <Picker
+                selectedValue={formData.departmentId}
                 onValueChange={(value) =>
                   handleInputChange("departmentId", value)
                 }
-                items={departments.map((department) => ({
-                  label: department.name,
-                  value: department.id,
-                }))}
-                style={{
-                  inputIOS: {
-                    padding: 10,
-                    backgroundColor: "#FFF",
-                    color: "black",
-                  },
-                  inputAndroid: {
-                    backgroundColor: "#FFF",
-                    padding: 10,
-                    color: "black",
-                  },
-                }}
-                placeholder={{ label: "Chọn khoa", value: null }}
-              />
+              >
+                {
+                  departments.map((department) => (
+                    <Picker.Item label={department.name} value={department.id} />
+                  ))
+                }
+              </Picker>
             </View>
+
             {/* Chọn Ngày */}
             <Text style={styles.labelModal}>Chọn Ngày:</Text>
             <View style={styles.pickerContainerModal}>
@@ -508,6 +500,7 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: "center",
     marginBottom: 10,
+    zIndex: 10,
   },
 
   closeButton: {
