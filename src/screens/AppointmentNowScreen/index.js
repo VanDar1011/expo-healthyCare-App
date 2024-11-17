@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
@@ -271,6 +272,7 @@ const Postion = () => {
               style={styles.inputModal}
               placeholder="Tên"
               value={formData.name}
+              editable={false}
               onChangeText={(text) => handleInputChange("name", text)}
             />
             {/* Email */}
@@ -279,6 +281,7 @@ const Postion = () => {
               placeholder="Email"
               keyboardType="email-address"
               value={formData.email}
+              editable={false}
               onChangeText={(text) => handleInputChange("email", text)}
             />
             {/* Số điện thoại */}
@@ -287,6 +290,7 @@ const Postion = () => {
               placeholder="Số điện thoại"
               keyboardType="phone-pad"
               value={formData.phone}
+              returnKeyType="done"
               onChangeText={(text) => handleInputChange("phone", text)}
             />
             {/* Chọn Khoa */}

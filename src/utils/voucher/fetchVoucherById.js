@@ -1,8 +1,8 @@
+import { cos } from "mathjs";
 import API_APP from "../config";
 const fetchVouchers = async (userId, setVouchers) => {
   try {
     // console.log("userId is", userId);
-    // console.log("setVouchers is", setVouchers);
     const response = await fetch(`${API_APP}/v1/api/voucher?userId=${userId}`, {
       method: "GET",
       headers: {
@@ -12,7 +12,17 @@ const fetchVouchers = async (userId, setVouchers) => {
     // console.log("response", response);
     const data = await response.json();
     // console.log("data", data.data.vouchers);
-    setVouchers(data.data.vouchers); // Lưu dữ liệu voucher từ API
+
+    // validate voucher by expiry date
+    const currentDate = new Date();
+    const validVouchers = data.data.vouchers.filter((voucher) => {
+      const expiryDate = new Date(voucher.expired_at);
+      // console.log("expiryDate", expiryDate);
+      return expiryDate > currentDate; // Only keep vouchers that are not expired
+    });
+    console.log("validVouchers", validVouchers);
+    setVouchers(validVouchers);
+    // setVouchers(data.data.vouchers); // Lưu dữ liệu voucher từ API
   } catch (error) {
     console.error("Error fetching vouchers:", error);
   }
