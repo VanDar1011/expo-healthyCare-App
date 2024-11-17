@@ -67,9 +67,8 @@ const Postion = () => {
   const handleSubmit = async () => {
     try {
       // Logic xử lý đặt lịch ở đây (gửi dữ liệu hoặc xác nhận)
-      // console.log(formData);
+      console.log("Time current : ", formData.time);
       const dateString = formData.date.toISOString().split("T")[0];
-      // console.log(dateString);
       const dateParts = dateString.split("-"); // Tách thành mảng ngày tháng năm
       const year = parseInt(dateParts[0], 10);
       const month = parseInt(dateParts[1], 10) - 1; // Tháng bắt đầu từ 0
@@ -81,6 +80,7 @@ const Postion = () => {
         formData.time.getHours(),
         formData.time.getMinutes()
       );
+      const startTime = new Date(startDateTime);
       if (!isDuringWorkingHours(startDateTime)) {
         Alert.alert(
           "Lỗi",
@@ -88,38 +88,33 @@ const Postion = () => {
         );
         return;
       }
-      setLoadingAppointment(true);
-      console.log("Start Time", startDateTime);
       const endDateTime = startDateTime.setHours(
         startDateTime.getHours() + 2,
         startDateTime.getMinutes() + 59
       );
-      const endDate = new Date(endDateTime);
 
-      // Chuyển đổi đối tượng Date sang định dạng ISO
-      const isoEndTime = endDate.toISOString();
-      console.log("End Time", isoEndTime);
+      const endDate = new Date(endDateTime);
 
       // Thiết lập thời gian bắt đầu
       const data = await bookAppointment({
         userId,
         email,
-        startTime: startDateTime,
-        endTime: isoEndTime,
+        startTime: startTime,
+        endTime: endDate,
         phone: formData.phone,
         branch_id: formData.branch,
         specialist_id: formData.departmentId,
         voucher_code: selectedVoucher?.voucher_code,
       });
       setSelectedVoucher(null);
-      console.log(data);
+      // console.log(data);
       Alert.alert("Tạo lịch hẹn", "Tạo lịch hẹn thành công");
       setIsFormVisible(false);
     } catch (error) {
       console.log(error);
       Alert.alert("Lỗi", "Đặt lịch thất bại");
     } finally {
-      setLoadingAppointment(false);
+      // setLoadingAppointment(false);
     }
   };
 

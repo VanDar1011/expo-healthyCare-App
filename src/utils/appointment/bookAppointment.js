@@ -28,7 +28,7 @@ const bookAppointment = async ({
         voucher_code,
       }),
     });
-    console.log("res : ", res);
+    // console.log("res : ", res);
     if (!res.ok) {
       const errData = await res.json();
       throw new Error(errData.message || "Something went wrong");
