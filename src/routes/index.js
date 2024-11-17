@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import MapScreen from "../screens/MapScreen";
 import MapboxWebMap from "../components/MapboxWebMap";
 import ChangePasswordScreen from "../components/ChangePasswordScreen";
+import TestRNSelect from "../components/TestRNSelect";
 
 const Stack = createNativeStackNavigator();
 const Routes = () => {
@@ -108,10 +109,18 @@ const Routes = () => {
         <Stack.Screen name="AppointmentNow" options={{ headerShown: false }}>
           {() => (
             <ProtectedRoute>
-              <AppointmentNowScreen />
+              <TestRNSelect />
             </ProtectedRoute>
           )}
         </Stack.Screen>
+        {/* origin  */}
+        {/* <Stack.Screen name="AppointmentNow" options={{ headerShown: false }}>
+          {() => (
+            <ProtectedRoute>
+              <AppointmentNowScreen />
+            </ProtectedRoute>
+          )}
+        </Stack.Screen> */}
         <Stack.Screen name="DetailsMedicine" options={{ headerShown: false }}>
           {() => (
             <ProtectedRoute>

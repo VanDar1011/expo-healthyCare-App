@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
+import DropDownPicker from "react-native-dropdown-picker";
+import SelectDropdown from "react-native-select-dropdown";
 import fetchNearPlace from "../../utils/map/fetchNearPlace";
 // import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -26,6 +28,7 @@ import { useNavigation } from "@react-navigation/native";
 import VoucherSelector from "../../components/VoucherSelector";
 import FullScreenLoading from "../../components/FulllScreenLoading";
 import isDuringWorkingHours from "../../utils/appointment/duringHouse";
+import { set } from "react-hook-form";
 const Postion = () => {
   const navaigation = useNavigation();
   const [location, setLocation] = useState(null);
@@ -39,6 +42,8 @@ const Postion = () => {
   const [loading, isLoading] = useState(true);
   const [loadingAppointment, setLoadingAppointment] = useState(false);
   const [selectedVoucher, setSelectedVoucher] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
+  const departmentOptions = ["Khoa A", "Khoa B", "Khoa C"];
   const [formData, setFormData] = useState({
     name: name,
     email: email,
@@ -188,6 +193,7 @@ const Postion = () => {
   useEffect(() => {
     const functionFetchDoctorGroup = async () => {
       try {
+        console.log("re-render");
         await fetchDoctorGroup(setDoctorGroups, (flag = 3));
       } catch (error) {
         console.log("Error fetching fetchDoctorGroup:", error.message || error);
@@ -296,6 +302,29 @@ const Postion = () => {
             {/* Chọn Khoa */}
             <Text style={styles.labelModal}>Chọn Khoa:</Text>
             <View style={styles.pickerContainerKhoaModal}>
+              {/* <DropDownPicker
+                open={open}
+                value={value}
+                items={departments.map((department) => ({
+                  label: department.name,
+                  value: department.id,
+                }))}
+                setOpen={setOpen}
+                setValue={setValue}
+                onChangeValue={(val) => handleInputChange("departmentId", val)}
+                placeholder="Chọn khoa"
+                style={styles.input}
+                dropDownStyle={styles.dropDown}
+                placeholderStyle={styles.placeholder}
+              /> */}
+              <SelectDropdown
+                data={departmentOptions}
+                onSelect={(selectedItem) => setSelectedValue(selectedItem)}
+                defaultButtonText="Chọn khoa"
+              />
+              <Text>Selected Value: {selectedValue}</Text>
+            </View>
+            {/* <View style={styles.pickerContainerKhoaModal}>
               <RNPickerSelect
                 onValueChange={(value) =>
                   handleInputChange("departmentId", value)
@@ -318,7 +347,8 @@ const Postion = () => {
                 }}
                 placeholder={{ label: "Chọn khoa", value: null }}
               />
-            </View>
+            </View> */}
+
             {/* Chọn Ngày */}
             <Text style={styles.labelModal}>Chọn Ngày:</Text>
             <View style={styles.pickerContainerModal}>
@@ -535,6 +565,20 @@ const styles = StyleSheet.create({
     fontSize: 18, // Kích thước chữ lớn
     color: "#333", // Màu chữ đậm
     marginBottom: 10, // Khoảng cách dưới cho ActivityIndicator
+  },
+  input: {
+    padding: 10,
+    backgroundColor: "#FFF",
+    color: "black",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+  },
+  dropDown: {
+    backgroundColor: "#fafafa",
+  },
+  placeholder: {
+    color: "#bbb",
   },
 });
 
