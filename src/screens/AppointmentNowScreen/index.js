@@ -11,7 +11,8 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import { Dropdown } from "react-native-element-dropdown"; // Importing the Dropdown component
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import fetchNearPlace from "../../utils/map/fetchNearPlace";
@@ -19,7 +20,6 @@ import fetchNearPlace from "../../utils/map/fetchNearPlace";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useDispatch, useSelector } from "react-redux";
 import fetchDoctorGroup from "../../utils/doctorgroup/fetchDoctorGroup";
-import RNPickerSelect from "react-native-picker-select";
 import formatDistance from "../../utils/map/formatDistance";
 // import FullScreenLoading from "./FulllScreenLoading";
 import bookAppointment from "../../utils/appointment/bookAppointment";
@@ -50,6 +50,7 @@ const Postion = () => {
     time: new Date(),
   });
   const handleInputChange = (key, value) => {
+    // console.log(key, value);
     setFormData({ ...formData, [key]: value });
   };
 
@@ -297,20 +298,28 @@ const Postion = () => {
             {/* Chọn Khoa */}
             <Text style={styles.labelModal}>Chọn Khoa:</Text>
             <View style={styles.pickerContainerKhoaModal}>
-              <Picker
-                selectedValue={formData.departmentId}
-                onValueChange={(value) =>
-                  handleInputChange("departmentId", value)
-                }
-              >
-                {
-                  departments.map((department) => (
-                    <Picker.Item label={department.name} value={department.id} />
-                  ))
-                }
-              </Picker>
+              {/* new dropDown  */}
+              <Dropdown
+                style={styles.dropdown} // Styling the dropdown
+                data={departments}
+                searchPlaceholder="Search..."
+                labelField="name" // Field to display in the dropdown
+                valueField="id" // Field used to identify selected value
+                value={formData.departmentId}
+                onChange={(item) => handleInputChange("departmentId", item.id)} // Update value on change
+                placeholder="Select Department"
+                search
+                maxHeight={300}
+                renderLeftIcon={() => (
+                  <AntDesign
+                    name="Safety"
+                    size={20}
+                    color="black"
+                    style={styles.icon}
+                  />
+                )}
+              />
             </View>
-
             {/* Chọn Ngày */}
             <Text style={styles.labelModal}>Chọn Ngày:</Text>
             <View style={styles.pickerContainerModal}>
@@ -493,14 +502,20 @@ const styles = StyleSheet.create({
     width: "100%", // Kích thước chữ nhỏ hơn
   },
   pickerContainerKhoaModal: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    width: "100%",
-    height: 60,
-    justifyContent: "center",
-    marginBottom: 10,
-    zIndex: 10,
+    // borderWidth: 1,
+    // borderColor: "#ccc",
+    // borderRadius: 5,
+    // width: "100%",
+    // height: 60,
+    // justifyContent: "center",
+    // marginBottom: 10,
+    // zIndex: 10,
+    // height: 50,
+    // borderColor: "gray",
+    // borderWidth: 1,
+    // borderRadius: 8,
+    // paddingHorizontal: 12,
+    // justifyContent: "center",
   },
 
   closeButton: {
@@ -528,6 +543,17 @@ const styles = StyleSheet.create({
     fontSize: 18, // Kích thước chữ lớn
     color: "#333", // Màu chữ đậm
     marginBottom: 10, // Khoảng cách dưới cho ActivityIndicator
+  },
+  icon: {
+    marginRight: 8,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    justifyContent: "center",
   },
 });
 
