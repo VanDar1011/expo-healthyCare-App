@@ -11,8 +11,9 @@ const createPaymentIntent = async (amount) => {
       }),
     });
     if (!res.ok) {
-      const errData = await res.json();
-      throw new Error(errData.message || "Something went wrong");
+      return;
+      // const errData = await res.json();
+      // throw new Error(errData.message || "Something went wrong");
     }
     const data = await res.json();
     console.log(data);

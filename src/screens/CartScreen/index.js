@@ -61,7 +61,8 @@ const CartScreen = () => {
         totalAmount
       );
       if (responseCreatePaymentIntent.error) {
-        throw new Error(responseCreatePaymentIntent.error);
+        return;
+        // throw new Error(responseCreatePaymentIntent.error);
       }
       console.log(responseCreatePaymentIntent);
       // initial payment sheet
@@ -73,12 +74,14 @@ const CartScreen = () => {
         // defaultBillingDetails: {},
       });
       if (responseInitPayment.error) {
-        throw new Error(responseInitPayment.error);
+        return;
+        // throw new Error(responseInitPayment.error);
       }
       // perent payment sheet from striple
       const responsePaymentSheet = await presentPaymentSheet();
       if (responsePaymentSheet.error) {
-        throw new Error(responsePaymentSheet.error);
+        return;
+        // throw new Error(responsePaymentSheet.error);
       }
       console.log("checkout ok");
       // if payment ok - > create order, change status, change item carts
